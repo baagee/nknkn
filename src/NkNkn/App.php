@@ -1,0 +1,132 @@
+<?php
+/**
+ * Desc: App
+ * User: baagee
+ * Date: 2019/3/29
+ * Time: 下午10:57
+ */
+
+namespace BaAGee\NkNkn;
+
+use BaAGee\Config\Config;
+use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Log\Handler\FileLog;
+use BaAGee\Log\Log;
+use BaAGee\MySQL\DBConfig;
+use BaAGee\MySQL\SqlRecorder;
+use BaAGee\Wtf\Handler\WtfHandler;
+use BaAGee\Wtf\WtfError;
+
+/**
+ * Class App
+ * @package BaAGee\NkNkn
+ */
+class App
+{
+    /**
+     * App constructor.
+     * @param bool $isDebug
+     * @throws \Exception
+     */
+    final public function __construct($isDebug = true)
+    {
+        $startInitTime = microtime(true);
+        AppEnv::init($isDebug);
+        // 注册错误提示
+        WtfError::register(new WtfHandler([
+            'is_debug'             => AppEnv::get('IS_DEBUG'),#是否为调试模式
+            #php error log路径不为空就调用写Log方法
+            'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
+            'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
+            'dev_error_hidden'     => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 调试开发模式下隐藏哪种PHP错误类型
+        ]));
+
+        // 配置初始化
+        Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+        $dbConfig = Config::get('mysql');
+        if (!empty($dbConfig)) {
+            // Db配置初始化
+            DBConfig::init($dbConfig);
+            // Sql记录到Log
+            SqlRecorder::setSaveHandler(function ($params) {
+                static::saveSqlLog($params);
+            });
+        }
+
+        // Log初始化
+        Log::init(new FileLog([
+            // 基本目录
+            'baseLogPath'   => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
+            // 是否按照小时分割
+            'autoSplitHour' => true,
+            'subDir'        => Config::get('app/app_name'),
+        ]), Config::get('app/log_cache_limit_percent'), LogFormatter::class);
+        Log::info('app init');
+        $endInitTime = microtime(true);
+        Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
+    }
+
+    /**
+     * @param $params
+     */
+    protected static function saveSqlLog($params)
+    {
+        $totalTime   = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
+        $connectTime = number_format(($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
+        $sqlTime     = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5);
+        $logStr      = json_encode(array_merge([
+            'totalTime'   => $totalTime . 'ms',
+            'connectTime' => $connectTime . 'ms',
+            'sqlTime'     => $sqlTime . 'ms'
+        ], $params['sqlInfo']), JSON_UNESCAPED_UNICODE);
+        Log::debug($logStr);
+    }
+
+    /**
+     * @throws \Exception
+     */
+    final public function run()
+    {
+        if (PHP_SAPI !== 'cli') {
+            $this->cgi();
+        } else {
+            // 命令行下
+            $this->cli($argv ?? []);
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    final protected function cgi()
+    {
+        $routerStartTime = microtime(true);
+        if (AppEnv::get('IS_DEBUG') ||
+            Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
+            Log::info('router init');
+            Router::batchAdd(include_once AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
+        }
+        Router::setNotFound(function () {
+            $file = Config::get('app/404file');
+            if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
+                header('Location: ' . $file);
+            } else {
+                http_response_code(404);
+            }
+        });
+        $routerEndTime = microtime(true);
+        Log::info(sprintf('App init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
+        echo Router::dispatch();
+        $dispatchEndTime = microtime(true);
+        Log::info(sprintf('App dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
+    }
+
+    /**
+     * cli命令行程序入口
+     * @param array $params
+     */
+    protected function cli($params)
+    {
+
+    }
+}
