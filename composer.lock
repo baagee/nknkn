@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed6c5e284427ff06d2a39d983b6af92b",
+    "content-hash": "cfe34452485258b937a3a3548b01f676",
     "packages": [
         {
             "name": "baagee/php-config",
