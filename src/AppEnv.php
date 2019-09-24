@@ -25,7 +25,7 @@ final class AppEnv
     public static function init($isDebug)
     {
         self::set('IS_DEBUG', $isDebug);
-        self::set('ROOT_PATH', realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..'])));
+        self::set('ROOT_PATH', realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', '..', '..'])));
         self::set('RUNTIME_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'runtime']));
         self::set('APP_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'app']));
         self::set('CONFIG_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'config']));
