@@ -10,7 +10,6 @@ namespace BaAGee\NkNkn;
 
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
-use BaAGee\Log\Handler\FileLog;
 use BaAGee\Log\Log;
 use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
@@ -43,43 +42,32 @@ class App
 
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+
         $dbConfig = Config::get('mysql');
         if (!empty($dbConfig)) {
             // Db配置初始化
             DBConfig::init($dbConfig);
             // Sql记录到Log
             SqlRecorder::setSaveHandler(function ($params) {
-                static::saveSqlLog($params);
+                $totalTime   = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
+                $connectTime = number_format(($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
+                $sqlTime     = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5);
+                $logStr      = json_encode(array_merge([
+                    'totalTime'   => $totalTime . 'ms',
+                    'connectTime' => $connectTime . 'ms',
+                    'sqlTime'     => $sqlTime . 'ms'
+                ], $params['sqlInfo']), JSON_UNESCAPED_UNICODE);
+                Log::debug($logStr);
             });
         }
 
         // Log初始化
-        Log::init(new FileLog([
-            // 基本目录
-            'baseLogPath'   => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
-            // 是否按照小时分割
-            'autoSplitHour' => true,
-            'subDir'        => Config::get('app/app_name'),
-        ]), Config::get('app/log_cache_limit_percent'), LogFormatter::class);
+        $logHandler = Config::get('app/log');
+        $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
+        Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
         Log::info('app init');
         $endInitTime = microtime(true);
         Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
-    }
-
-    /**
-     * @param $params
-     */
-    protected static function saveSqlLog($params)
-    {
-        $totalTime   = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
-        $connectTime = number_format(($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
-        $sqlTime     = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5);
-        $logStr      = json_encode(array_merge([
-            'totalTime'   => $totalTime . 'ms',
-            'connectTime' => $connectTime . 'ms',
-            'sqlTime'     => $sqlTime . 'ms'
-        ], $params['sqlInfo']), JSON_UNESCAPED_UNICODE);
-        Log::debug($logStr);
     }
 
     /**
