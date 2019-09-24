@@ -31,7 +31,7 @@ class LogFormatter extends BaseLogFormatter
         return json_encode([
             'level'     => $level,
             'time'      => $time,
-            'log_id'    => AppEnv::get('LOG_ID'),
+            'trace_id'  => AppEnv::get('TRACE_ID'),
             'app_name'  => Config::get('app/app_name'),
             'php_sapi'  => PHP_SAPI,
             'client_ip' => static::getClientIp(),

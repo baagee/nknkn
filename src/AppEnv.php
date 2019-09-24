@@ -20,19 +20,6 @@ final class AppEnv
     private static $env = [];
 
     /**
-     * @param $isDebug
-     */
-    public static function init($isDebug)
-    {
-        self::set('IS_DEBUG', $isDebug);
-        self::set('ROOT_PATH', realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', '..', '..'])));
-        self::set('RUNTIME_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'runtime']));
-        self::set('APP_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'app']));
-        self::set('CONFIG_PATH', implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'config']));
-        self::set('LOG_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
-    }
-
-    /**
      * @param $key
      * @param $value
      */
@@ -48,6 +35,34 @@ final class AppEnv
      */
     public static function get($key, $default = null)
     {
-        return self::$env[strtoupper($key)] ?? $default;
+        $uppKey = strtoupper($key);
+        if (isset(self::$env[$uppKey])) {
+            return self::$env[$uppKey];
+        } else {
+            switch ($uppKey) {
+                case 'ROOT_PATH':
+                    $rootPath = realpath(implode(DIRECTORY_SEPARATOR, [__DIR__, '..', '..', '..', '..']));
+                    self::set('ROOT_PATH', $rootPath);
+                    return $rootPath;
+                    break;
+                case 'RUNTIME_PATH':
+                    $runtimePath = implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'runtime']);
+                    self::set('RUNTIME_PATH', $runtimePath);
+                    return $runtimePath;
+                    break;
+                case 'APP_PATH':
+                    $appPath = implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'app']);
+                    self::set('APP_PATH', $appPath);
+                    return $appPath;
+                    break;
+                case 'CONFIG_PATH':
+                    $configPath = implode(DIRECTORY_SEPARATOR, [self::get('ROOT_PATH'), 'config']);
+                    self::set('CONFIG_PATH', $configPath);
+                    return $configPath;
+                    break;
+                default:
+                    return $default;
+            }
+        }
     }
 }

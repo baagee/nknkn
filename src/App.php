@@ -24,24 +24,24 @@ class App
 {
     /**
      * App constructor.
-     * @param bool $isDebug
      * @throws \Exception
      */
-    final public function __construct($isDebug = true)
+    final public function __construct()
     {
         $startInitTime = microtime(true);
-        AppEnv::init($isDebug);
+        // 设置本次请求的ID
+        AppEnv::set('TRACE_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
+
+        // 配置初始化
+        Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
         // 注册错误提示
         WtfError::register(new WtfHandler([
-            'is_debug'             => AppEnv::get('IS_DEBUG'),#是否为调试模式
+            'is_debug'             => Config::get('app/is_debug'),#是否为调试模式
             #php error log路径不为空就调用写Log方法
             'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
             'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
             'dev_error_hidden'     => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 调试开发模式下隐藏哪种PHP错误类型
         ]));
-
-        // 配置初始化
-        Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
 
         $dbConfig = Config::get('mysql');
         if (!empty($dbConfig)) {
