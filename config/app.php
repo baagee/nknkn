@@ -11,11 +11,13 @@ use BaAGee\NkNkn\AppEnv;
 use \BaAGee\NkNkn\LogFormatter;
 
 return [
-    'app_name' => 'app_name',
+    'app_name'             => 'app_name',
     // Log缓存占用php.ini限制的内存百分比
-    '404file'  => '/assets/404.html',//404时页面文件路径
-    'is_debug' => true,//是否开发调试模式
-    'log'      => [
+    '404file'              => '/assets/404.html',//404时页面文件路径
+    'is_debug'             => true,//是否开发调试模式
+    'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
+    'debug_error_hidden'   => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 调试开发模式下隐藏哪种PHP错误类型
+    'log'                  => [
         //日志储存配置
         'handler'             => FileLog::class,//文件储存
         // 文件储存配置
@@ -30,7 +32,7 @@ return [
         'formatter'           => LogFormatter::class
     ],
     // 有session配置就开始cookie
-    'cookie'   => [
+    'cookie'               => [
         'prefix'     => '', // cookie 名称前缀
         'expire'     => 3600 * 12, // cookie 保存时间
         'path'       => '/', // cookie 保存路径
@@ -41,7 +43,7 @@ return [
         'encryptkey' => '798y567R%^E$RF87t78e123iJKBUyr765r',//是否加密，有值cookie就加密
     ],
     // 有session配置就开启session
-    'session'  => [
+    'session'              => [
         'handler'      => \BaAGee\Session\Handler\Redis::class,//使用redis储存
         'host'         => '127.0.0.1', // redis主机
         'port'         => 6379, // redis端口

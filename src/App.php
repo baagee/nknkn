@@ -34,13 +34,14 @@ class App
 
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+
         // 注册错误提示
         WtfError::register(new WtfHandler([
             'is_debug'             => Config::get('app/is_debug'),#是否为调试模式
             #php error log路径不为空就调用写Log方法
             'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
-            'product_error_hidden' => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 非调试模式下隐藏哪种PHP错误类型
-            'dev_error_hidden'     => [E_WARNING, E_NOTICE, E_STRICT, E_DEPRECATED],# 调试开发模式下隐藏哪种PHP错误类型
+            'product_error_hidden' => Config::get('app/product_error_hidden'),# 非调试模式下隐藏哪种PHP错误类型
+            'dev_error_hidden'     => Config::get('app/debug_error_hidden'),# 调试开发模式下隐藏哪种PHP错误类型
         ]));
 
         $dbConfig = Config::get('mysql');
@@ -89,7 +90,7 @@ class App
     final protected function cgi()
     {
         $routerStartTime = microtime(true);
-        if (AppEnv::get('IS_DEBUG') ||
+        if (Config::get('app/is_debug') ||
             Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
             Log::info('router init');
             Router::batchAdd(include_once AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
