@@ -111,4 +111,15 @@ final class Router extends RouterAbstract
             return $res;
         });
     }
+
+    /**
+     * @param array $routers
+     * @throws \Exception
+     */
+    public static function init(array $routers)
+    {
+        foreach ($routers as $path => $router) {
+            self::add($router['method'], $path, $router['callback'], $router['middleware'] ?? []);
+        }
+    }
 }

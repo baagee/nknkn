@@ -93,7 +93,7 @@ class App
         if (Config::get('app/is_debug') ||
             Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
             Log::info('router init');
-            Router::batchAdd(include_once AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
+            Router::init(include_once AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
         }
         Router::setNotFound(function () {
             $file = Config::get('app/404file');
