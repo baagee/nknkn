@@ -45,13 +45,8 @@ return [
     // 有session配置就开启session
     'session'              => [
         'handler'      => \BaAGee\Session\Handler\Redis::class,//使用redis储存
-        'host'         => '127.0.0.1', // redis主机
-        'port'         => 6379, // redis端口
-        'password'     => '', // 密码
         'select'       => 2, // 操作库
         'expire'       => 3600 * 12, // 有效期(秒)
-        'timeout'      => 0, // 超时时间(秒)
-        'persistent'   => false, // 是否长连接
         'session_name' => 'session_', // sessionkey前缀
         'auto_start'   => 1,// 是否自动开启session
         'use_cookies'  => 1

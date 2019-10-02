@@ -10,6 +10,7 @@ namespace BaAGee\NkNkn\Middleware;
 
 use BaAGee\Config\Config;
 use BaAGee\Log\Log;
+use BaAGee\Session\Handler\Redis;
 use BaAGee\Session\Session;
 use BaAGee\NkNkn\Base\MiddlewareAbstract;
 
@@ -28,6 +29,12 @@ class SessionInit extends MiddlewareAbstract
     protected function handler(\Closure $next, $data)
     {
         $sessionConfig = Config::get('app/session');
+        if ($sessionConfig['handler'] == Redis::class && !isset($sessionConfig['host'])) {
+            $redisConfig               = Config::get('redis');
+            $redisConfig['persistent'] = $redisConfig['pconnect'] ?? false;
+            unset($redisConfig['pconnect']);
+            $sessionConfig = array_merge($sessionConfig, $redisConfig);
+        }
         if (!empty($sessionConfig)) {
             Session::init($sessionConfig);
             Log::info('session init');
