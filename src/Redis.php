@@ -54,10 +54,10 @@ class Redis
 
             $res = false;
             for ($i = 0; $i <= intval($config['retryTimes'] ?? 0); $i++) {
-                if ($config['pconnect']) {
-                    $res = $redisObj->pconnect($config['host'], $config['port'], $config['timeout']);
+                if (isset($config['pconnect']) && $config['pconnect'] == true) {
+                    $res = $redisObj->pconnect($config['host'], $config['port'], intval($config['timeout'] ?? 1));
                 } else {
-                    $res = $redisObj->connect($config['host'], $config['port'], $config['timeout']);
+                    $res = $redisObj->connect($config['host'], $config['port'], intval($config['timeout'] ?? 1));
                 }
                 if ($res == true) {
                     break;
