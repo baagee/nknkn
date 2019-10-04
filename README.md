@@ -14,4 +14,5 @@
     "baagee/php-session": "0.0.*" // Session管理类
     "baagee/php-cookie": "0.0.*" //Cookie管理类
     "baagee/php-event": "0.0.*",//事件定义触发类
+    "baagee/php-curl-request": "0.0.*",//Curl请求类
 ```

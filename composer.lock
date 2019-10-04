@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfe34452485258b937a3a3548b01f676",
+    "content-hash": "ba219975c30659ec4ac66a3d43b98c16",
     "packages": [
         {
             "name": "baagee/php-config",
@@ -102,6 +102,53 @@
                 "php"
             ],
             "time": "2019-04-15T02:26:27+00:00"
+        },
+        {
+            "name": "baagee/php-curl-request",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/php-curl-request.git",
+                "reference": "75a8f13de3093ca5b01bdf9368db018df8f95e39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/php-curl-request/zipball/75a8f13de3093ca5b01bdf9368db018df8f95e39",
+                "reference": "75a8f13de3093ca5b01bdf9368db018df8f95e39",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\CurlRequest\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BaAGee",
+                    "email": "2274313786@qq.com"
+                }
+            ],
+            "description": "PHP Curl Request library",
+            "keywords": [
+                "curl request",
+                "php"
+            ],
+            "time": "2019-10-04T14:04:18+00:00"
         },
         {
             "name": "baagee/php-event",

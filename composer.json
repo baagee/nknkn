@@ -26,7 +26,8 @@
     "baagee/php-template": "0.0.*",
     "baagee/php-session": "0.0.*",
     "baagee/php-cookie": "0.0.*",
-    "baagee/php-event": "0.0.*"
+    "baagee/php-event": "0.0.*",
+    "baagee/php-curl-request": "0.0.*"
   },
   "autoload": {
     "psr-4": {
