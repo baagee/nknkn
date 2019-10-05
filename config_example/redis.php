@@ -1,10 +1,5 @@
 <?php
-/**
- * Desc:
- * User: baagee
- * Date: 2019-08-24
- * Time: 13:57
- */
+
 return [
     'host'       => '127.0.0.1',
     'port'       => 6379,

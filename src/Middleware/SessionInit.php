@@ -28,7 +28,7 @@ class SessionInit extends MiddlewareAbstract
      */
     protected function handler(\Closure $next, $data)
     {
-        $sessionConfig = Config::get('app/session');
+        $sessionConfig = Config::get('session');
         if (!empty($sessionConfig)) {
             if ($sessionConfig['handler'] == Redis::class && !isset($sessionConfig['host'])) {
                 $redisConfig               = Config::get('redis');

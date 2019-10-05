@@ -1,11 +1,4 @@
 <?php
-/**
- * Desc: mysql数据库配置
- * User: baagee
- * Date: 2019/3/15
- * Time: 下午6:47
- */
-
 use BaAGee\NkNkn\AppEnv;
 
 return [

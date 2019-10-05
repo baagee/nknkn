@@ -29,4 +29,6 @@ class CoreNoticeCode
     const ILLEGAL_UPLOAD_FILE = 1008;
 
     const CURL_REQUEST_FAILED = 1009;
+
+    const SERVICE_NAME_EMPTY = 1010;
 }

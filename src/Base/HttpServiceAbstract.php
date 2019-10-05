@@ -15,10 +15,10 @@ use BaAGee\Log\Log;
 use BaAGee\NkNkn\CoreNoticeCode;
 
 /**
- * Class CurlRequest
+ * Class HttpServiceAbstract
  * @package BaAGee\NkNkn\Base
  */
-abstract class CurlRequest extends SingleRequest
+abstract class HttpServiceAbstract extends SingleRequest
 {
     /**
      * @var string
@@ -26,7 +26,8 @@ abstract class CurlRequest extends SingleRequest
     protected $serviceName = '';
 
     /**
-     * CurlRequest constructor.
+     * HttpServiceAbstract constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
@@ -63,6 +64,7 @@ abstract class CurlRequest extends SingleRequest
      * 批量请求
      * @param $params
      * @return array|null
+     * @throws \Exception
      */
     public function multipleRequest($params)
     {
@@ -75,10 +77,14 @@ abstract class CurlRequest extends SingleRequest
 
     /**
      * @return array|mixed|null
+     * @throws \Exception
      */
     private function getConfig()
     {
-        $config = Config::get('http/' . $this->serviceName);
+        if (empty($this->serviceName)) {
+            throw new \Exception("serviceName不能为空", CoreNoticeCode::SERVICE_NAME_EMPTY);
+        }
+        $config = Config::get('service/' . $this->serviceName);
         if (empty($config)) {
             $config = [];
         }

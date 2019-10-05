@@ -63,7 +63,7 @@ class App
         }
 
         // Log初始化
-        $logHandler = Config::get('app/log');
+        $logHandler = Config::get('log');
         $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
         Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
         Log::info('app init');
