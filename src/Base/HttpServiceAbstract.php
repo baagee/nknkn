@@ -39,17 +39,15 @@ abstract class HttpServiceAbstract extends SingleRequest
      * @param string $path
      * @param        $params
      * @param string $method
-     * @param array  $headers
-     * @param string $cookies
      * @return string
      * @throws \Exception
      */
-    public function request(string $path, $params, string $method, array $headers = [], string $cookies = '')
+    public function request(string $path, $params, string $method)
     {
         Log::info(sprintf('CurlRequest start serviceName:%s path:%s params:%s method:%s headers:%s cookies:%s',
             $this->serviceName, $path, is_array($params) ? json_encode($params) : $params, $method,
-            json_encode($headers), $cookies));
-        $res = parent::request($path, $params, $method, $headers, $cookies);
+            json_encode($this->headers), $this->cookies));
+        $res = parent::request($path, $params, $method);
         Log::info(sprintf('CurlRequest end serviceName:%s path:%s all result:%s', $this->serviceName,
             $path, json_encode($res)));
 
