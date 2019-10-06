@@ -66,10 +66,10 @@ final class Router extends RouterAbstract
     protected static function getRequestData($method, $params)
     {
         $contentType = strtolower($_SERVER['CONTENT_TYPE']);
-        if (in_array($contentType, ['application/json'])) {
+        if (strpos($contentType, 'application/json') !== false) {
             // json
             $requestParams = json_decode(file_get_contents('php://input'), true) ?? [];
-        } elseif (in_array($contentType, ['application/xml', 'text/xml'])) {
+        } elseif (strpos($contentType, 'application/xml') !== false || strpos($contentType, 'text/xml') !== false) {
             //xml
             $xml = simplexml_load_string(file_get_contents('php://input'));
             if (!is_null($xml)) {
