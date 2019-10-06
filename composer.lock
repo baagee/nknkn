@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba219975c30659ec4ac66a3d43b98c16",
+    "content-hash": "92d60c635a5252331bb06ee462de7d52",
     "packages": [
         {
             "name": "baagee/php-config",
@@ -386,16 +386,16 @@
         },
         {
             "name": "baagee/php-router",
-            "version": "v0.0.9",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-router.git",
-                "reference": "942522b3e06cdc1743b715b5e54f657f72e96491"
+                "reference": "cd4869b6173b8b77e413755ddb442b86b6bb86b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-router/zipball/942522b3e06cdc1743b715b5e54f657f72e96491",
-                "reference": "942522b3e06cdc1743b715b5e54f657f72e96491",
+                "url": "https://api.github.com/repos/baagee/php-router/zipball/cd4869b6173b8b77e413755ddb442b86b6bb86b6",
+                "reference": "cd4869b6173b8b77e413755ddb442b86b6bb86b6",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -428,7 +428,7 @@
                 "php",
                 "router"
             ],
-            "time": "2019-09-22T15:53:09+00:00"
+            "time": "2019-10-06T04:54:49+00:00"
         },
         {
             "name": "baagee/php-session",

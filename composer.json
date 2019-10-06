@@ -19,7 +19,7 @@
     "baagee/php-onion": "0.0.*",
     "baagee/php-params-validator": "0.0.*",
     "baagee/php-mysql": "0.*.*",
-    "baagee/php-router": "0.0.*",
+    "baagee/php-router": "0.1.*",
     "baagee/php-config": "0.0.*",
     "baagee/php-log": "0.0.*",
     "baagee/wtf-error": "0.0.*",
