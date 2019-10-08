@@ -109,12 +109,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-curl-request.git",
-                "reference": "d20ae83b0113f36460257b3750580a07baf3f6f2"
+                "reference": "0398c1f45f90124d7c399db54e8fa5b540f60110"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-curl-request/zipball/d20ae83b0113f36460257b3750580a07baf3f6f2",
-                "reference": "d20ae83b0113f36460257b3750580a07baf3f6f2",
+                "url": "https://api.github.com/repos/baagee/php-curl-request/zipball/0398c1f45f90124d7c399db54e8fa5b540f60110",
+                "reference": "0398c1f45f90124d7c399db54e8fa5b540f60110",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -148,7 +148,7 @@
                 "curl request",
                 "php"
             ],
-            "time": "2019-10-06T10:40:49+00:00"
+            "time": "2019-10-06T10:46:13+00:00"
         },
         {
             "name": "baagee/php-event",
