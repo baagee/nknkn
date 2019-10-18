@@ -34,7 +34,10 @@ class App
 
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
-
+        $tz = Config::get('app/timezone');
+        if (!empty($tz)) {
+            date_default_timezone_set($tz);
+        }
         // 注册错误提示
         WtfError::register(new WtfHandler([
             'is_debug'             => Config::get('app/is_debug'),#是否为调试模式

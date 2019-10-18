@@ -6,6 +6,7 @@ use \BaAGee\NkNkn\LogFormatter;
 
 return [
     'app_name'             => 'app_name',
+    'timezone'             => 'PRC',
     // Log缓存占用php.ini限制的内存百分比
     '404file'              => '/assets/404.html',//404时页面文件路径
     'is_debug'             => true,//是否开发调试模式
