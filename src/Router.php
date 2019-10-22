@@ -9,6 +9,7 @@
 namespace BaAGee\NkNkn;
 
 use BaAGee\Log\Log;
+use BaAGee\NkNkn\Base\ActionAbstract;
 use BaAGee\Onion\Onion;
 use BaAGee\Router\Base\RouterAbstract;
 use BaAGee\NkNkn\Middleware\CookieInit;
@@ -33,21 +34,40 @@ final class Router extends RouterAbstract
         if ($callback instanceof \Closure) {
         } elseif (is_string($callback) || is_array($callback)) {
             if (is_string($callback)) {
-                $callback = explode('@', $callback);
-            }
-            list($controller, $action) = $callback;
-            if (class_exists($controller)) {
-                $obj = new $controller();
-                if (method_exists($obj, $action)) {
-                    $cA = explode('\\', $controller);
-                    AppEnv::set('CONTROLLER', end($cA));
-                    AppEnv::set('ACTION', $action);
-                    $callback = [$obj, $action];
+                if (strpos($callback, '@') !== false) {
+                    // 控制器@action
+                    $callback = explode('@', $callback);
+                    // 控制器名字 类名字
+                    $controllerName = $className = $callback[0];
+                    // 动作名字 执行类的方法
+                    $actionName = $methodName = $callback[1];
+                } elseif (class_exists($callback) && is_subclass_of($callback, ActionAbstract::class)) {
+                    // $actionClassName
+                    $className      = $callback;
+                    $methodName     = 'main';
+                    $tmp            = explode('\\', $className);
+                    $actionName     = array_pop($tmp);
+                    $controllerName = array_pop($tmp);
                 } else {
-                    throw new \Exception(sprintf('[%s]控制器的[%s]方法不存在', $controller, $action));
+                    throw new \Exception('不合法的callback路由回调');
                 }
             } else {
-                throw new \Exception(sprintf('[%s]控制器不存在', $controller));
+                $controllerName = $className = $callback[0];
+                $actionName     = $methodName = $callback[1];
+            }
+
+            if (class_exists($className)) {
+                $obj = new $className();
+                if (method_exists($obj, $methodName)) {
+                    $controllerName = array_pop(explode('\\', $controllerName));
+                    AppEnv::set('CONTROLLER', $controllerName);
+                    AppEnv::set('ACTION', $actionName);
+                    $callback = [$obj, $methodName];
+                } else {
+                    throw new \Exception(sprintf('[%s]类的[%s]方法不存在', $className, $methodName));
+                }
+            } else {
+                throw new \Exception(sprintf('[%s]类不存在', $className));
             }
         } else {
             throw new \Exception('不合法的callback路由回调');
