@@ -341,12 +341,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-params-validator.git",
-                "reference": "2a3d1ca00cf1642a36f0423ce487d0fb0de4fddf"
+                "reference": "2f81ed5a8297fa1f06d2dce277323119e8376a49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-params-validator/zipball/2a3d1ca00cf1642a36f0423ce487d0fb0de4fddf",
-                "reference": "2a3d1ca00cf1642a36f0423ce487d0fb0de4fddf",
+                "url": "https://api.github.com/repos/baagee/php-params-validator/zipball/2f81ed5a8297fa1f06d2dce277323119e8376a49",
+                "reference": "2f81ed5a8297fa1f06d2dce277323119e8376a49",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -382,7 +382,7 @@
                 "validate",
                 "validator"
             ],
-            "time": "2019-09-07T16:10:32+00:00"
+            "time": "2019-10-22T13:56:06+00:00"
         },
         {
             "name": "baagee/php-router",
