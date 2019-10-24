@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "baagee/php-config",
-            "version": "v0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-config.git",
-                "reference": "26ebf9fa26112a29411e2deedffcb9a5b664a3e4"
+                "reference": "95391a64e953e463ddae2b27526529ab95e2efc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-config/zipball/26ebf9fa26112a29411e2deedffcb9a5b664a3e4",
-                "reference": "26ebf9fa26112a29411e2deedffcb9a5b664a3e4",
+                "url": "https://api.github.com/repos/baagee/php-config/zipball/95391a64e953e463ddae2b27526529ab95e2efc9",
+                "reference": "95391a64e953e463ddae2b27526529ab95e2efc9",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -55,7 +55,7 @@
                 "config",
                 "php"
             ],
-            "time": "2019-03-31T09:33:32+00:00"
+            "time": "2019-10-24T09:31:54+00:00"
         },
         {
             "name": "baagee/php-cookie",
@@ -198,16 +198,16 @@
         },
         {
             "name": "baagee/php-log",
-            "version": "v0.0.7",
+            "version": "v0.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-log.git",
-                "reference": "bba5f883288b03803e368d4c6e47f4f6d6707cda"
+                "reference": "ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-log/zipball/bba5f883288b03803e368d4c6e47f4f6d6707cda",
-                "reference": "bba5f883288b03803e368d4c6e47f4f6d6707cda",
+                "url": "https://api.github.com/repos/baagee/php-log/zipball/ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314",
+                "reference": "ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -240,7 +240,7 @@
                 "log",
                 "php"
             ],
-            "time": "2019-10-14T13:13:49+00:00"
+            "time": "2019-10-24T07:39:54+00:00"
         },
         {
             "name": "baagee/php-mysql",

@@ -34,6 +34,10 @@ class App
 
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+        if (!Config::get('app/is_debug')) {
+            // 不是开发调试模式 更快的读取配置信息
+            Config::fast(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache');
+        }
         $tz = Config::get('app/timezone');
         if (!empty($tz)) {
             date_default_timezone_set($tz);
@@ -107,10 +111,10 @@ class App
             }
         });
         $routerEndTime = microtime(true);
-        Log::info(sprintf('App init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
+        Log::info(sprintf('Router init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
         echo Router::dispatch();
         $dispatchEndTime = microtime(true);
-        Log::info(sprintf('App dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
+        Log::info(sprintf('Router dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
     }
 
     /**
