@@ -198,16 +198,16 @@
         },
         {
             "name": "baagee/php-log",
-            "version": "v0.0.8",
+            "version": "v0.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-log.git",
-                "reference": "ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314"
+                "reference": "681aae06d8ae1747352fa7c368bd9270dfa2f4cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-log/zipball/ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314",
-                "reference": "ac0c30aa0a16c50ab0bf8d802cdcc21349c7e314",
+                "url": "https://api.github.com/repos/baagee/php-log/zipball/681aae06d8ae1747352fa7c368bd9270dfa2f4cf",
+                "reference": "681aae06d8ae1747352fa7c368bd9270dfa2f4cf",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -240,7 +240,7 @@
                 "log",
                 "php"
             ],
-            "time": "2019-10-24T07:39:54+00:00"
+            "time": "2019-10-25T07:40:50+00:00"
         },
         {
             "name": "baagee/php-mysql",

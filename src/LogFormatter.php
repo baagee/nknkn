@@ -22,11 +22,12 @@ class LogFormatter extends BaseLogFormatter
      * @param string $log
      * @param string $file
      * @param int    $line
+     * @param int    $time
      * @return false|string
      */
-    protected static function getLogString($level, $log, $file, $line)
+    protected static function getLogString($level, $log, $file, $line, $time)
     {
-        list($t1, $t2) = explode('.', microtime(true));
+        list($t1, $t2) = explode('.', $time);
         $time = sprintf('%s.%s', date('Y-m-d H:i:s', $t1), $t2);
         return json_encode([
             'level'     => $level,
