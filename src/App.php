@@ -112,6 +112,9 @@ class App
         $routerEndTime = microtime(true);
         Log::info(sprintf('Router init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
         echo Router::dispatch();
+        if (function_exists('fastcgi_finish_request')) {
+            fastcgi_finish_request();
+        }
         $dispatchEndTime = microtime(true);
         Log::info(sprintf('Router dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
     }
