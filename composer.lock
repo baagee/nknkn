@@ -244,16 +244,16 @@
         },
         {
             "name": "baagee/php-mysql",
-            "version": "v0.1.7",
+            "version": "v0.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-mysql.git",
-                "reference": "ab65785c2149112140590fc56e7cf83e52e00b76"
+                "reference": "821a37cf1460d4c64ecd1d749376c69189a7628c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/ab65785c2149112140590fc56e7cf83e52e00b76",
-                "reference": "ab65785c2149112140590fc56e7cf83e52e00b76",
+                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/821a37cf1460d4c64ecd1d749376c69189a7628c",
+                "reference": "821a37cf1460d4c64ecd1d749376c69189a7628c",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -287,7 +287,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2019-10-10T11:01:34+00:00"
+            "time": "2019-10-27T11:04:18+00:00"
         },
         {
             "name": "baagee/php-onion",
@@ -478,16 +478,16 @@
         },
         {
             "name": "baagee/php-template",
-            "version": "v0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-template.git",
-                "reference": "9f6d782ab07960e93345ec577251a11e9a9f7c06"
+                "reference": "ce1b8d1914dfde441447c482f40f67d0de13c39f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-template/zipball/9f6d782ab07960e93345ec577251a11e9a9f7c06",
-                "reference": "9f6d782ab07960e93345ec577251a11e9a9f7c06",
+                "url": "https://api.github.com/repos/baagee/php-template/zipball/ce1b8d1914dfde441447c482f40f67d0de13c39f",
+                "reference": "ce1b8d1914dfde441447c482f40f67d0de13c39f",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -521,7 +521,7 @@
                 "template",
                 "view"
             ],
-            "time": "2019-03-25T08:16:45+00:00"
+            "time": "2019-10-28T09:04:29+00:00"
         },
         {
             "name": "baagee/wtf-error",
