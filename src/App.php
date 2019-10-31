@@ -23,25 +23,86 @@ use BaAGee\Wtf\WtfError;
 class App
 {
     /**
+     * @var bool 是否初始化
+     */
+    protected static $isInit = false;
+
+    /**
      * App constructor.
      * @throws \Exception
      */
     final public function __construct()
     {
-        $startInitTime = microtime(true);
-        // 设置本次请求的ID
-        AppEnv::set('TRACE_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
+        if (self::$isInit === false) {
+            $startInitTime = microtime(true);
+            // 设置本次请求的ID
+            $this->setTraceId();
+            // 配置初始化
+            $this->configInit();
+            //设置时区
+            $this->setTimezone();
+            // 注册错误提示
+            $this->wtfInit();
+            //数据库初始化
+            $this->mysqlInit();
+            // Log初始化
+            $this->logInit();
+            $endInitTime = microtime(true);
+            Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
+            self::$isInit = true;
+        }
+    }
 
+    /**
+     * 设置时区
+     */
+    final protected function setTimezone()
+    {
+        $tz = Config::get('app/timezone');
+        if (!empty($tz)) {
+            date_default_timezone_set($tz);
+        }
+    }
+
+    /**
+     * 设置请求ID
+     */
+    final protected function setTraceId()
+    {
+        AppEnv::set('TRACE_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
+    }
+
+    /**
+     * Log初始化
+     * @throws \Exception
+     */
+    final protected function logInit()
+    {
+        $logHandler = Config::get('log');
+        $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
+        Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
+    }
+
+    /**
+     * 配置初始化
+     * @throws \Exception
+     */
+    final protected function configInit()
+    {
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
         if (!Config::get('app/is_debug')) {
             // 不是开发调试模式 更快的读取配置信息
             Config::fast(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache');
         }
-        $tz = Config::get('app/timezone');
-        if (!empty($tz)) {
-            date_default_timezone_set($tz);
-        }
+    }
+
+    /**
+     * 错误信息展示初始化
+     * @throws \Exception
+     */
+    final protected function wtfInit()
+    {
         // 注册错误提示
         WtfError::register(new WtfHandler([
             'is_debug'             => Config::get('app/is_debug'),#是否为调试模式
@@ -50,7 +111,14 @@ class App
             'product_error_hidden' => Config::get('app/product_error_hidden'),# 非调试模式下隐藏哪种PHP错误类型
             'dev_error_hidden'     => Config::get('app/debug_error_hidden'),# 调试开发模式下隐藏哪种PHP错误类型
         ]));
+    }
 
+    /**
+     * mysql配置初始化
+     * @throws \Exception
+     */
+    final protected function mysqlInit()
+    {
         $dbConfig = Config::get('mysql');
         if (!empty($dbConfig)) {
             // Db配置初始化
@@ -68,13 +136,6 @@ class App
                 Log::debug($logStr);
             });
         }
-
-        // Log初始化
-        $logHandler = Config::get('log');
-        $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
-        Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
-        $endInitTime = microtime(true);
-        Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
     }
 
     /**

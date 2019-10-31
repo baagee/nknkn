@@ -1,4 +1,5 @@
 <?php
+
 use BaAGee\NkNkn\AppEnv;
 
 return [
@@ -9,7 +10,9 @@ return [
     'database'         => 'db',
     'connectTimeout'   => 1,
     'charset'          => 'utf8mb4',
-    'schemasCachePath' => AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'schemas',
+    'schemasCachePath' => implode(DIRECTORY_SEPARATOR, [
+        AppEnv::get('RUNTIME_PATH'), 'cache', 'schemas'
+    ]),
     'slave'            => [
         [
             'host'           => '127.0.0.1',
