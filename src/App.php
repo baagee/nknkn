@@ -56,7 +56,7 @@ class App
     /**
      * 设置时区
      */
-    final protected function setTimezone()
+    final private function setTimezone()
     {
         $tz = Config::get('app/timezone');
         if (!empty($tz)) {
@@ -67,7 +67,7 @@ class App
     /**
      * 设置请求ID
      */
-    final protected function setTraceId()
+    final private function setTraceId()
     {
         AppEnv::set('TRACE_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
     }
@@ -76,7 +76,7 @@ class App
      * Log初始化
      * @throws \Exception
      */
-    final protected function logInit()
+    final private function logInit()
     {
         $logHandler = Config::get('log');
         $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
@@ -87,7 +87,7 @@ class App
      * 配置初始化
      * @throws \Exception
      */
-    final protected function configInit()
+    final private function configInit()
     {
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
@@ -101,7 +101,7 @@ class App
      * 错误信息展示初始化
      * @throws \Exception
      */
-    final protected function wtfInit()
+    final private function wtfInit()
     {
         // 注册错误提示
         WtfError::register(new WtfHandler([
@@ -117,7 +117,7 @@ class App
      * mysql配置初始化
      * @throws \Exception
      */
-    final protected function mysqlInit()
+    final private function mysqlInit()
     {
         $dbConfig = Config::get('mysql');
         if (!empty($dbConfig)) {
@@ -154,7 +154,7 @@ class App
     /**
      * @throws \Exception
      */
-    final protected function cgi()
+    final private function cgi()
     {
         $routerStartTime = microtime(true);
         if (Config::get('app/is_debug') ||
