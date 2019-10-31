@@ -125,9 +125,15 @@ class App
             DBConfig::init($dbConfig);
             // Sql记录到Log
             SqlRecorder::setSaveHandler(function ($params) {
-                $totalTime   = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
-                $connectTime = number_format(($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5);
-                $sqlTime     = number_format(($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5);
+                $totalTime   = number_format(
+                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5
+                );
+                $connectTime = number_format(
+                    ($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5
+                );
+                $sqlTime     = number_format(
+                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5
+                );
                 $logStr      = json_encode(array_merge([
                     'totalTime'   => $totalTime . 'ms',
                     'connectTime' => $connectTime . 'ms',
