@@ -108,7 +108,7 @@ final class Router extends RouterAbstract
             }
         }
         $params = array_merge($requestParams, $params);
-        Log::info('获取到请求参数: ' . json_encode($params, true));
+        Log::info('Request params: ' . json_encode($params, JSON_UNESCAPED_UNICODE));
         return $params;
     }
 
@@ -122,12 +122,12 @@ final class Router extends RouterAbstract
     {
         $onion = new Onion();
         return $onion->send($data)->through($layer)->then(function ($request) use ($callback) {
-            Log::info('action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
+            Log::info('Action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
             $startTime = microtime(true);
             $res       = call_user_func($callback, $request);
             $endTime   = microtime(true);
-            Log::info('action output：' . json_encode($res, JSON_UNESCAPED_UNICODE));
-            Log::info('action执行时间：' . (($endTime - $startTime) * 1000) . 'ms');
+            $time      = number_format(($endTime - $startTime) * 1000, 3, '.', '');
+            Log::info(sprintf('Action output %s  execute time：%sms', json_encode($res, JSON_UNESCAPED_UNICODE), $time));
             return $res;
         });
     }

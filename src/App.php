@@ -55,7 +55,8 @@ class App
             // 触发app初始化事件
             Event::trigger(CoreEventList::APP_AFTER_INIT_EVENT);
             $endInitTime = microtime(true);
-            Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
+            $time        = number_format(($endInitTime - $startInitTime) * 1000, 3, '.', '');
+            Log::info(sprintf('%s time:%sms', __METHOD__, $time));
             self::$isInit = true;
         }
     }
@@ -77,7 +78,7 @@ class App
                 Log::warning($event . ' 事件类找不到');
             }
         };
-        $events = Config::get('event');
+        $events = Config::get('event', []);
         if (!empty($events)) {
             foreach ($events as $name => $event) {
                 if (is_array($event)) {
@@ -107,7 +108,7 @@ class App
      */
     final private function setTraceId()
     {
-        AppEnv::set('TRACE_ID', (microtime(true) * 10000) . mt_rand(1000, 9999));
+        AppEnv::set('TRACE_ID', intval((microtime(true) * 10000) . mt_rand(1000, 9999)));
     }
 
     /**
@@ -200,11 +201,12 @@ class App
      */
     final private function cgi()
     {
-        $routerStartTime = microtime(true);
+        // 路由初始化前
         Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
+
+        $routerStartTime = microtime(true);
         if (Config::get('app/is_debug') ||
             Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
-            Log::info('router init');
             Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
         }
         Router::setNotFound(function () {
@@ -215,17 +217,26 @@ class App
                 http_response_code(404);
             }
         });
-        Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
         $routerEndTime = microtime(true);
         Log::info(sprintf('Router init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
+
+        // 路由初始化后
+        Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
+
+        // 路由匹配开始前
         Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
+
+        $routerEndTime = microtime(true);
         echo Router::dispatch();
+        $dispatchEndTime = microtime(true);
+        Log::info(sprintf('Router dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
+
+        // 路由匹配&执行结束
         Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
+
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         }
-        $dispatchEndTime = microtime(true);
-        Log::info(sprintf('Router dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
     }
 
     /**

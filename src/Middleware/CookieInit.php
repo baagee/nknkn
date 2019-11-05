@@ -29,7 +29,7 @@ class CookieInit extends MiddlewareAbstract
         $cookieConfig = Config::get('cookie');
         if (!empty($cookieConfig)) {
             Cookie::init($cookieConfig);
-            Log::info('cookie init');
+            Log::info('Cookie init');
         }
         return $next($data);
     }

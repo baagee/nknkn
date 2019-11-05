@@ -37,7 +37,7 @@ class SessionInit extends MiddlewareAbstract
                 $sessionConfig = array_merge($sessionConfig, $redisConfig);
             }
             Session::init($sessionConfig);
-            Log::info('session init');
+            Log::info('Session init');
         }
         return $next($data);
     }

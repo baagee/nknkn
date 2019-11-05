@@ -47,8 +47,11 @@ abstract class HttpServiceAbstract extends SingleRequest
         Log::info(sprintf('CurlRequest start serviceName:%s path:%s params:%s method:%s headers:%s cookies:%s',
             $this->serviceName, $path, is_array($params) ? json_encode($params) : $params, $method,
             json_encode($this->headers), $this->cookies));
-        $res = parent::request($path, $params, $method);
-        Log::info(sprintf('CurlRequest end serviceName:%s path:%s all result:%s', $this->serviceName,
+        $stime = microtime(true);
+        $res   = parent::request($path, $params, $method);
+        $etime = microtime(true);
+        $time  = number_format(($etime - $stime) * 1000, 3, '.', '');
+        Log::info(sprintf('CurlRequest end time: %sms serviceName:%s path:%s all result:%s', $time, $this->serviceName,
             $path, json_encode($res)));
 
         if ($res['errno'] == 0) {
@@ -68,8 +71,11 @@ abstract class HttpServiceAbstract extends SingleRequest
     {
         $req = new MultipleRequest($this->getConfig());
         Log::info(sprintf('MultipleRequest start serviceName:%s allParams:%s', $this->serviceName, json_encode($params)));
-        $res = $req->request($params);
-        Log::info(sprintf('MultipleRequest end serviceName:%s all result:%s', $this->serviceName, json_encode($res)));
+        $stime = microtime(true);
+        $res   = $req->request($params);
+        $etime = microtime(true);
+        $time  = number_format(($etime - $stime) * 1000, 3, '.', '');
+        Log::info(sprintf('MultipleRequest end time: %sms serviceName:%s all result:%s', $time, $this->serviceName, json_encode($res)));
         return $res;
     }
 
