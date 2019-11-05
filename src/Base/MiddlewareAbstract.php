@@ -24,8 +24,8 @@ abstract class MiddlewareAbstract extends LayerAbstract
      */
     final public function exec(\Closure $next, $data)
     {
-        $stime = microtime(true);
         Log::info(sprintf('%s start!', static::class));
+        $stime  = microtime(true);
         $return = parent::exec($next, $data);
         $etime  = microtime(true);
         $time   = number_format(($etime - $stime) * 1000, 3, '.', '');

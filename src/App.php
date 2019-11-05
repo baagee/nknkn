@@ -52,12 +52,13 @@ class App
             $this->logInit();
             // 注册事件
             $this->registerEvents();
+            $endInitTime  = microtime(true);
+            $time         = number_format(($endInitTime - $startInitTime) * 1000, 3, '.', '');
+            self::$isInit = true;
+            Log::info(sprintf('App init time:%sms', $time));
+
             // 触发app初始化事件
             Event::trigger(CoreEventList::APP_AFTER_INIT_EVENT);
-            $endInitTime = microtime(true);
-            $time        = number_format(($endInitTime - $startInitTime) * 1000, 3, '.', '');
-            Log::info(sprintf('%s time:%sms', __METHOD__, $time));
-            self::$isInit = true;
         }
     }
 
@@ -218,7 +219,8 @@ class App
             }
         });
         $routerEndTime = microtime(true);
-        Log::info(sprintf('Router init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
+        $time          = number_format(($routerEndTime - $routerStartTime) * 1000, 3, '.', '');
+        Log::info(sprintf('Router init time:%sms', $time));
 
         // 路由初始化后
         Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
@@ -229,7 +231,8 @@ class App
         $routerEndTime = microtime(true);
         echo Router::dispatch();
         $dispatchEndTime = microtime(true);
-        Log::info(sprintf('Router dispatch time:%sms', ($dispatchEndTime - $routerEndTime) * 1000));
+        $time            = number_format(($dispatchEndTime - $routerEndTime) * 1000, 3, '.', '');
+        Log::info(sprintf('Router dispatch time:%sms', $time));
 
         // 路由匹配&执行结束
         Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);

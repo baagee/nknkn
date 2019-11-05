@@ -76,8 +76,8 @@ class Redis
             }
             static::$redisObj = $redisObj;
             $eTime            = microtime(true);
-            Log::info(sprintf('Call Redis method:%s usedTime:%sms', ($config['pconnect'] ? 'pconnect' : 'connect'),
-                ($eTime - $sTime) * 1000));
+            $time             = number_format(($eTime - $sTime) * 1000, 4, '.', '');
+            Log::info(sprintf('Call Redis method:%s time:%sms', ($config['pconnect'] ? 'pconnect' : 'connect'), $time));
             static::$selfObj = new static();
         }
         return static::$selfObj;
@@ -91,11 +91,12 @@ class Redis
     public function __call($name, $arguments)
     {
         if (method_exists(static::$redisObj, $name)) {
-            $sTime = microtime(true);
             Log::info(sprintf('Call Redis method:%s args:%s', $name, json_encode($arguments, JSON_UNESCAPED_UNICODE)));
+            $sTime = microtime(true);
             $res   = call_user_func_array([static::$redisObj, $name], $arguments);
             $eTime = microtime(true);
-            Log::info(sprintf('Call Redis method:%s usedTime:%sms', $name, ($eTime - $sTime) * 1000));
+            $time  = number_format(($eTime - $sTime) * 1000, 3, '.', '');
+            Log::info(sprintf('Call Redis method:%s time:%sms', $name, $time));
             return $res;
         } else {
             return false;
