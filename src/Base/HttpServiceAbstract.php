@@ -12,7 +12,7 @@ use BaAGee\Config\Config;
 use BaAGee\CurlRequest\MultipleRequest;
 use BaAGee\CurlRequest\SingleRequest;
 use BaAGee\Log\Log;
-use BaAGee\NkNkn\CoreNoticeCode;
+use BaAGee\NkNkn\Constant\CoreNoticeCode;
 
 /**
  * Class HttpServiceAbstract

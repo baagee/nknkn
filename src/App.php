@@ -10,9 +10,12 @@ namespace BaAGee\NkNkn;
 
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
+use BaAGee\NkNkn\Base\EventAbstract;
+use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Wtf\Handler\WtfHandler;
 use BaAGee\Wtf\WtfError;
 
@@ -47,9 +50,44 @@ class App
             $this->mysqlInit();
             // Log初始化
             $this->logInit();
+            // 注册事件
+            $this->registerEvents();
+            // 触发app初始化事件
+            Event::trigger(CoreEventList::APP_AFTER_INIT_EVENT);
             $endInitTime = microtime(true);
             Log::info(sprintf('%s time:%sms', __METHOD__, ($endInitTime - $startInitTime) * 1000));
             self::$isInit = true;
+        }
+    }
+
+    /**
+     * 注册事件
+     */
+    final protected function registerEvents()
+    {
+        $func   = function ($name, $event) {
+            if (class_exists($event)) {
+                if (is_subclass_of($event, EventAbstract::class)) {
+                    $obj = new $event();
+                    Event::listen($name, [$obj, 'main']);
+                } else {
+                    Log::warning($event . ' 没有继承 ' . EventAbstract::class);
+                }
+            } else {
+                Log::warning($event . ' 事件类找不到');
+            }
+        };
+        $events = Config::get('event');
+        if (!empty($events)) {
+            foreach ($events as $name => $event) {
+                if (is_array($event)) {
+                    foreach ($event as $e) {
+                        $func($name, $e);
+                    }
+                } elseif (is_string($event)) {
+                    $func($name, $event);
+                }
+            }
         }
     }
 
@@ -163,6 +201,7 @@ class App
     final private function cgi()
     {
         $routerStartTime = microtime(true);
+        Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
         if (Config::get('app/is_debug') ||
             Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
             Log::info('router init');
@@ -176,9 +215,12 @@ class App
                 http_response_code(404);
             }
         });
+        Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
         $routerEndTime = microtime(true);
         Log::info(sprintf('Router init time:%sms', ($routerEndTime - $routerStartTime) * 1000));
+        Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
         echo Router::dispatch();
+        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         }

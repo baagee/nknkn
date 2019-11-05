@@ -8,6 +8,8 @@
 
 namespace BaAGee\NkNkn;
 
+use \BaAGee\NkNkn\Constant\CoreNoticeCode;
+
 /**
  * Class UserNotice
  * @package BaAGee\NkNkn

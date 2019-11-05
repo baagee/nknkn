@@ -8,7 +8,7 @@
 
 namespace BaAGee\NkNkn\Base;
 
-use BaAGee\NkNkn\CoreNoticeCode;
+use BaAGee\NkNkn\Constant\CoreNoticeCode;
 use BaAGee\NkNkn\UserNotice;
 use BaAGee\ParamsValidator\Base\ParamInvalid;
 use BaAGee\ParamsValidator\Validator;

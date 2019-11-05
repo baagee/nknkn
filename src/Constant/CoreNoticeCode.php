@@ -6,7 +6,7 @@
  * Time: 12:02
  */
 
-namespace BaAGee\NkNkn;
+namespace BaAGee\NkNkn\Constant;
 
 class CoreNoticeCode
 {

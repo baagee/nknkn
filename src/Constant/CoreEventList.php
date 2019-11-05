@@ -1,0 +1,18 @@
+<?php
+/**
+ * Desc: 核心事件名字
+ * User: 01372412
+ * Date: 2019/11/5
+ * Time: 上午11:10
+ */
+
+namespace BaAGee\NkNkn\Constant;
+
+class CoreEventList
+{
+    const APP_AFTER_INIT_EVENT         = 'CORE_APP_AFTER_INIT_EVENT';
+    const ROUTER_BEFORE_INIT_EVENT     = 'CORE_ROUTER_BEFORE_INIT_EVENT';
+    const ROUTER_AFTER_INIT_EVENT      = 'CORE_ROUTER_AFTER_INIT_EVENT';
+    const ROUTER_BEFORE_DISPATCH_EVENT = 'CORE_ROUTER_BEFORE_DISPATCH_EVENT';
+    const ROUTER_AFTER_DISPATCH_EVENT  = 'CORE_ROUTER_AFTER_DISPATCH_EVENT';
+}

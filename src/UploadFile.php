@@ -8,6 +8,8 @@
 
 namespace BaAGee\NkNkn;
 
+use BaAGee\NkNkn\Constant\CoreNoticeCode;
+
 /**
  * Class UploadFile
  * @package App\Library
