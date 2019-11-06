@@ -10,6 +10,7 @@ namespace BaAGee\NkNkn;
 
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Base\ActionAbstract;
+use BaAGee\NkNkn\Base\TimerTrait;
 use BaAGee\Onion\Onion;
 use BaAGee\Router\Base\RouterAbstract;
 use BaAGee\NkNkn\Middleware\CookieInit;
@@ -21,6 +22,8 @@ use BaAGee\NkNkn\Middleware\SessionInit;
  */
 final class Router extends RouterAbstract
 {
+    use TimerTrait;
+
     /**
      * @param \Closure|string $callback
      * @param array           $params
@@ -123,10 +126,11 @@ final class Router extends RouterAbstract
         $onion = new Onion();
         return $onion->send($data)->through($layer)->then(function ($request) use ($callback) {
             Log::info('Action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
-            $startTime = microtime(true);
-            $res       = call_user_func($callback, $request);
-            $endTime   = microtime(true);
-            $time      = number_format(($endTime - $startTime) * 1000, 3, '.', '');
+            
+            list($res, $time) = self::executeTime(function ($callback, $request) {
+                return call_user_func($callback, $request);
+            }, 0, $callback, $request);
+
             Log::info(sprintf('Action output %s  execute time：%sms', json_encode($res, JSON_UNESCAPED_UNICODE), $time));
             return $res;
         });

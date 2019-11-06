@@ -17,6 +17,8 @@ use BaAGee\Onion\Base\LayerAbstract;
  */
 abstract class MiddlewareAbstract extends LayerAbstract
 {
+    use TimerTrait;
+
     /**
      * @param \Closure $next
      * @param          $data
@@ -25,10 +27,9 @@ abstract class MiddlewareAbstract extends LayerAbstract
     final public function exec(\Closure $next, $data)
     {
         Log::info(sprintf('%s start!', static::class));
-        $stime  = microtime(true);
-        $return = parent::exec($next, $data);
-        $etime  = microtime(true);
-        $time   = number_format(($etime - $stime) * 1000, 3, '.', '');
+        list($return, $time) = self::executeTime(function ($next, $data) {
+            return parent::exec($next, $data);
+        }, 0, $next, $data);
         Log::info(sprintf('%s end! time: %sms', static::class, $time));
         return $return;
     }

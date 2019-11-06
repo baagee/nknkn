@@ -20,6 +20,7 @@ use BaAGee\NkNkn\Constant\CoreNoticeCode;
  */
 abstract class HttpServiceAbstract extends SingleRequest
 {
+    use TimerTrait;
     /**
      * @var string
      */
@@ -47,10 +48,9 @@ abstract class HttpServiceAbstract extends SingleRequest
         Log::info(sprintf('CurlRequest start serviceName:%s path:%s params:%s method:%s headers:%s cookies:%s',
             $this->serviceName, $path, is_array($params) ? json_encode($params) : $params, $method,
             json_encode($this->headers), $this->cookies));
-        $stime = microtime(true);
-        $res   = parent::request($path, $params, $method);
-        $etime = microtime(true);
-        $time  = number_format(($etime - $stime) * 1000, 3, '.', '');
+        list($res, $time) = self::executeTime(function ($path, $params, $method) {
+            return parent::request($path, $params, $method);
+        }, 0, $path, $params, $method);
         Log::info(sprintf('CurlRequest end time: %sms serviceName:%s path:%s all result:%s', $time, $this->serviceName,
             $path, json_encode($res)));
 
@@ -71,10 +71,7 @@ abstract class HttpServiceAbstract extends SingleRequest
     {
         $req = new MultipleRequest($this->getConfig());
         Log::info(sprintf('MultipleRequest start serviceName:%s allParams:%s', $this->serviceName, json_encode($params)));
-        $stime = microtime(true);
-        $res   = $req->request($params);
-        $etime = microtime(true);
-        $time  = number_format(($etime - $stime) * 1000, 3, '.', '');
+        list($res, $time) = self::executeTime([$req, 'request'], 0, $params);
         Log::info(sprintf('MultipleRequest end time: %sms serviceName:%s all result:%s', $time, $this->serviceName, json_encode($res)));
         return $res;
     }

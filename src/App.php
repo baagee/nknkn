@@ -15,6 +15,7 @@ use BaAGee\Log\Log;
 use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
 use BaAGee\NkNkn\Base\EventAbstract;
+use BaAGee\NkNkn\Base\TimerTrait;
 use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Wtf\Handler\WtfHandler;
 use BaAGee\Wtf\WtfError;
@@ -25,6 +26,7 @@ use BaAGee\Wtf\WtfError;
  */
 class App
 {
+    use TimerTrait;
     /**
      * @var bool 是否初始化
      */
@@ -37,24 +39,23 @@ class App
     final public function __construct()
     {
         if (self::$isInit === false) {
-            $startInitTime = microtime(true);
-            // 设置本次请求的ID
-            $this->setTraceId();
-            // 配置初始化
-            $this->configInit();
-            //设置时区
-            $this->setTimezone();
-            // 注册错误提示
-            $this->wtfInit();
-            //数据库初始化
-            $this->mysqlInit();
-            // Log初始化
-            $this->logInit();
-            // 注册事件
-            $this->registerEvents();
-            $endInitTime  = microtime(true);
-            $time         = number_format(($endInitTime - $startInitTime) * 1000, 3, '.', '');
-            self::$isInit = true;
+            list(, $time) = self::executeTime(function () {
+                // 设置本次请求的ID
+                $this->setTraceId();
+                // 配置初始化
+                $this->configInit();
+                //设置时区
+                $this->setTimezone();
+                // 注册错误提示
+                $this->wtfInit();
+                //数据库初始化
+                $this->mysqlInit();
+                // Log初始化
+                $this->logInit();
+                // 注册事件
+                $this->registerEvents();
+                self::$isInit = true;
+            });
             Log::info(sprintf('App init time:%sms', $time));
 
             // 触发app初始化事件
@@ -109,7 +110,7 @@ class App
      */
     final private function setTraceId()
     {
-        AppEnv::set('TRACE_ID', intval((microtime(true) * 10000) . mt_rand(1000, 9999)));
+        AppEnv::set('TRACE_ID', intval((microtime(true) * 10000)) . mt_rand(1000, 9999));
     }
 
     /**
@@ -205,21 +206,21 @@ class App
         // 路由初始化前
         Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
 
-        $routerStartTime = microtime(true);
-        if (Config::get('app/is_debug') ||
-            Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
-            Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
-        }
-        Router::setNotFound(function () {
-            $file = Config::get('app/404file');
-            if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
-                header('Location: ' . $file);
-            } else {
-                http_response_code(404);
+        list(, $time) = self::executeTime(function () {
+            if (Config::get('app/is_debug') ||
+                Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
+                Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
             }
+            Router::setNotFound(function () {
+                $file = Config::get('app/404file');
+                if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
+                    header('Location: ' . $file);
+                } else {
+                    http_response_code(404);
+                }
+            });
         });
-        $routerEndTime = microtime(true);
-        $time          = number_format(($routerEndTime - $routerStartTime) * 1000, 3, '.', '');
+
         Log::info(sprintf('Router init time:%sms', $time));
 
         // 路由初始化后
@@ -228,10 +229,8 @@ class App
         // 路由匹配开始前
         Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
 
-        $routerEndTime = microtime(true);
-        echo Router::dispatch();
-        $dispatchEndTime = microtime(true);
-        $time            = number_format(($dispatchEndTime - $routerEndTime) * 1000, 3, '.', '');
+        list($response, $time) = self::executeTime(Router::class . '::dispatch');
+        echo $response;
         Log::info(sprintf('Router dispatch time:%sms', $time));
 
         // 路由匹配&执行结束
