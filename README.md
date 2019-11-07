@@ -56,8 +56,9 @@ runtime // 运行时缓存等目录，要保证可写
 vendor // composer安装文件夹
 comspoer.json
 ```
-详细结构请看示例
+至于目录下的子目录，自己自定义就行
 
+详细参考结构请看示例
 [【sql-profiling】mysql sql语句性能分析平台](https://github.com/baagee/sql-profiling "sql-profiling")
 
 ## 框架运行流程
@@ -79,7 +80,7 @@ if 路由匹配成功
 else
     http_response_code(404)
 请求结束输出响应
-触发路由匹配执行之前事件
+触发路由匹配执行之后事件
 ```
 
 ## 支持自定义Log存储方式，默认文件
