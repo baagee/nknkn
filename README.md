@@ -90,7 +90,7 @@ else
 只需要继承并重写`BaAGee\Log\Base\LogFormatter`的`getLogString`方法即可，并在log.php配置文件指定formatter类名即可
 
 ## 支持中间件
-框架默认中间件有Session,Cookie，并能根据有无对应配置文件判断时候开启,用户可自定义中间件，比如验证登陆，权限之类的
+框架默认中间件有Session,Cookie，并能根据有无对应配置文件判断是否开启,用户可自定义中间件，比如验证登陆，权限之类的
 
 ## 支持事件触发，框架内置的事件有
 ```php
