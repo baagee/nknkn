@@ -229,7 +229,8 @@ class App
         // 路由匹配开始前
         Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
 
-        list($response, $time) = self::executeTime(Router::class . '::dispatch');
+        list($response, $time) = self::executeTime(Router::class . '::dispatch',
+            0, $_SERVER['PATH_INFO'], $_SERVER['REQUEST_METHOD']);
         echo $response;
         Log::info(sprintf('Router dispatch time:%sms', $time));
 
