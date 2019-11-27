@@ -62,7 +62,23 @@ final class Router extends RouterAbstract
             if (class_exists($className)) {
                 $obj = new $className();
                 if (method_exists($obj, $methodName)) {
+                    $c = explode('\\', $className);
+                    if (count($c) >= 4) {
+                        if (in_array(strtolower($c[1]), [
+                            'action', 'controller', 'model', 'view'
+                        ])) {
+                            $moduleName = false;
+                        } else {
+                            // 多模块
+                            $moduleName = $c[1];
+                        }
+                    } else {
+                        // 单模块
+                        $moduleName = false;
+                    }
                     $controllerName = array_pop(explode('\\', $controllerName));
+                    // var_dump($moduleName, $controllerName, $actionName);
+                    AppEnv::set('MODULE', $moduleName);
                     AppEnv::set('CONTROLLER', $controllerName);
                     AppEnv::set('ACTION', $actionName);
                     $callback = [$obj, $methodName];
@@ -126,7 +142,7 @@ final class Router extends RouterAbstract
         $onion = new Onion();
         return $onion->send($data)->through($layer)->then(function ($request) use ($callback) {
             Log::info('Action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
-            
+
             list($res, $time) = self::executeTime(function ($callback, $request) {
                 return call_user_func($callback, $request);
             }, 0, $callback, $request);
