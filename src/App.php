@@ -110,7 +110,11 @@ class App
      */
     final private function setTraceId()
     {
-        AppEnv::set('TRACE_ID', intval((microtime(true) * 10000)) . mt_rand(1000, 9999));
+        if (isset($_SERVER['HTTP_X_TRACE_ID']) && !empty($_SERVER['HTTP_X_TRACE_ID'])) {
+            AppEnv::set('TRACE_ID', $_SERVER['HTTP_X_TRACE_ID']);
+        } else {
+            AppEnv::set('TRACE_ID', intval((microtime(true) * 10000)) . mt_rand(1000, 9999));
+        }
     }
 
     /**

@@ -48,6 +48,7 @@ abstract class HttpServiceAbstract extends SingleRequest
         Log::info(sprintf('CurlRequest start serviceName:%s path:%s params:%s method:%s headers:%s cookies:%s',
             $this->serviceName, $path, is_array($params) ? json_encode($params) : $params, $method,
             json_encode($this->headers), $this->cookies));
+        $this->headers[] = 'x-trace-id: ' . \BaAGee\NkNkn\AppEnv::get('TRACE_ID');
         list($res, $time) = self::executeTime(function ($path, $params, $method) {
             return parent::request($path, $params, $method);
         }, 0, $path, $params, $method);
@@ -69,6 +70,10 @@ abstract class HttpServiceAbstract extends SingleRequest
      */
     public function multipleRequest($params)
     {
+        foreach ($params as &$item) {
+            $item['headers'][] = 'x-trace-id: ' . \BaAGee\NkNkn\AppEnv::get('TRACE_ID');
+        }
+        unset($item);
         $req = new MultipleRequest($this->getConfig());
         Log::info(sprintf('MultipleRequest start serviceName:%s allParams:%s', $this->serviceName, json_encode($params)));
         list($res, $time) = self::executeTime([$req, 'request'], 0, $params);
