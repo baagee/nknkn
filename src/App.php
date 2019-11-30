@@ -12,6 +12,7 @@ use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
+use BaAGee\Log\LogLevel;
 use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
 use BaAGee\NkNkn\Base\EventAbstract;
@@ -126,6 +127,10 @@ class App
         $logHandler = Config::get('log');
         $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
         Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
+        if (!Config::get('app/is_debug')) {
+            //非开发调试模式隐藏部分Log提升性能
+            LogLevel::setProductHiddenLevel((array)$logHandler['product_hidden_levels'] ?? []);
+        }
     }
 
     /**
