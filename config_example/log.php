@@ -12,7 +12,7 @@ return [
         'baseLogPath'   => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
         // 是否按照小时分割
         'autoSplitHour' => true,
-        'subDir'        => Config::get('app/app_name'),
+        'subDir'        => Config::get('app/app_name', ''),
     ],
     'cache_limit_percent'   => 5,
     'formatter'             => LogFormatter::class,

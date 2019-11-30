@@ -90,7 +90,7 @@ abstract class HttpServiceAbstract extends SingleRequest
         if (empty($this->serviceName)) {
             throw new \Exception("serviceName不能为空", CoreNoticeCode::SERVICE_NAME_EMPTY);
         }
-        $config = Config::get('service/' . $this->serviceName);
+        $config = Config::get('service/' . $this->serviceName, []);
         if (empty($config)) {
             $config = [];
         }

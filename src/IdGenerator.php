@@ -28,7 +28,7 @@ final class IdGenerator
     final public static function getOne()
     {
         $redis = Redis::getConnection();
-        $key   = self::KEY_PREFIX . Config::get('app/app_name');
+        $key   = self::KEY_PREFIX . Config::get('app/app_name', '');
         return intval(time() * 10000 + $redis->incr($key) * 10000 + rand(0, 10000));
     }
 
@@ -40,7 +40,7 @@ final class IdGenerator
     final public static function getYield(int $count)
     {
         $redis  = Redis::getConnection();
-        $key    = self::KEY_PREFIX . Config::get('app/app_name');
+        $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
         $number = $redis->incrby($key, $count);
         for ($i = 0; $i < $count; $i++) {
             yield intval(time() * 10000 + ($number - $count + $i + 1) * 10000 + rand(0, 10000));
@@ -55,7 +55,7 @@ final class IdGenerator
     final public static function getList(int $count)
     {
         $redis  = Redis::getConnection();
-        $key    = self::KEY_PREFIX . Config::get('app/app_name');
+        $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
         $number = $redis->incrby($key, $count);
         $idList = [];
         for ($i = 0; $i < $count; $i++) {

@@ -100,7 +100,7 @@ class App
      */
     final private function setTimezone()
     {
-        $tz = Config::get('app/timezone');
+        $tz = Config::get('app/timezone', '');
         if (!empty($tz)) {
             date_default_timezone_set($tz);
         }
@@ -124,12 +124,16 @@ class App
      */
     final private function logInit()
     {
-        $logHandler = Config::get('log');
-        $formatter  = empty($logHandler['formatter']) ? LogFormatter::class : $logHandler['formatter'];
-        Log::init(new $logHandler['handler']($logHandler['handler_config']), $logHandler['cache_limit_percent'], $formatter);
-        if (!Config::get('app/is_debug')) {
-            //非开发调试模式隐藏部分Log提升性能
-            LogLevel::setProductHiddenLevel((array)$logHandler['product_hidden_levels'] ?? []);
+        $logConfig = Config::get('log', []);
+        if (!empty($logConfig)) {
+            $formatter = empty($logConfig['formatter']) ? LogFormatter::class : $logConfig['formatter'];
+            Log::init(new $logConfig['handler']($logConfig['handler_config']), $logConfig['cache_limit_percent'], $formatter);
+            if (!Config::get('app/is_debug', true)) {
+                //非开发调试模式隐藏部分Log提升性能
+                LogLevel::setProductHiddenLevel((array)$logConfig['product_hidden_levels'] ?? []);
+            }
+        } else {
+            throw new \Exception("没有log配置文件");
         }
     }
 
@@ -141,7 +145,7 @@ class App
     {
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
-        if (!Config::get('app/is_debug')) {
+        if (!Config::get('app/is_debug', true)) {
             // 不是开发调试模式 更快的读取配置信息
             Config::fast(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache');
         }
@@ -155,11 +159,11 @@ class App
     {
         // 注册错误提示
         WtfError::register(new WtfHandler([
-            'is_debug'             => Config::get('app/is_debug'),#是否为调试模式
+            'is_debug'             => Config::get('app/is_debug', true),#是否为调试模式
             #php error log路径不为空就调用写Log方法
             'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
-            'product_error_hidden' => Config::get('app/product_error_hidden'),# 非调试模式下隐藏哪种PHP错误类型
-            'dev_error_hidden'     => Config::get('app/debug_error_hidden'),# 调试开发模式下隐藏哪种PHP错误类型
+            'product_error_hidden' => Config::get('app/product_error_hidden', []),# 非调试模式下隐藏哪种PHP错误类型
+            'dev_error_hidden'     => Config::get('app/debug_error_hidden', []),# 调试开发模式下隐藏哪种PHP错误类型
         ]));
     }
 
@@ -169,7 +173,7 @@ class App
      */
     final private function mysqlInit()
     {
-        $dbConfig = Config::get('mysql');
+        $dbConfig = Config::get('mysql',[]);
         if (!empty($dbConfig)) {
             // Db配置初始化
             DBConfig::init($dbConfig);
@@ -216,12 +220,12 @@ class App
         Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
 
         list(, $time) = self::executeTime(function () {
-            if (Config::get('app/is_debug') ||
+            if (Config::get('app/is_debug',true) ||
                 Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
                 Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
             }
             Router::setNotFound(function () {
-                $file = Config::get('app/404file');
+                $file = Config::get('app/404file','');
                 if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
                     header('Location: ' . $file);
                 } else {

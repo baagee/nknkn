@@ -33,7 +33,7 @@ class LogFormatter extends BaseLogFormatter
             'level'     => $level,
             'time'      => $time,
             'trace_id'  => AppEnv::get('TRACE_ID'),
-            'app_name'  => Config::get('app/app_name'),
+            'app_name'  => Config::get('app/app_name', ''),
             'php_sapi'  => PHP_SAPI,
             'client_ip' => static::getClientIp(),
             'uri'       => $_SERVER["REQUEST_URI"] ?? '~',

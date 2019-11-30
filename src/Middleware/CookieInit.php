@@ -26,7 +26,7 @@ class CookieInit extends MiddlewareAbstract
      */
     protected function handler(\Closure $next, $data)
     {
-        $cookieConfig = Config::get('cookie');
+        $cookieConfig = Config::get('cookie',[]);
         if (!empty($cookieConfig)) {
             Cookie::init($cookieConfig);
             Log::info('Cookie init');

@@ -50,7 +50,10 @@ class Redis
     public static function getConnection()
     {
         if (static::$redisObj == null) {
-            $config = Config::get('redis');
+            $config = Config::get('redis', []);
+            if (empty($config)) {
+                throw new \Exception("没找到redis配置文件");
+            }
             list(, $time) = self::executeTime(function ($config) {
                 $redisObj = new \Redis();
 

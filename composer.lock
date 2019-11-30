@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a2d4d18593d4fb6526cc1ba0d4a0622",
+    "content-hash": "5dd8ded022fcd65e2fc6c4decee1f9f7",
     "packages": [
         {
             "name": "baagee/php-config",
@@ -198,16 +198,16 @@
         },
         {
             "name": "baagee/php-log",
-            "version": "v0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-log.git",
-                "reference": "fb1dfddb1d24e815c5cbc35274f910299f2ddbd6"
+                "reference": "1cbe851640a58e83af8ef926d474b151e1bbb72d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-log/zipball/fb1dfddb1d24e815c5cbc35274f910299f2ddbd6",
-                "reference": "fb1dfddb1d24e815c5cbc35274f910299f2ddbd6",
+                "url": "https://api.github.com/repos/baagee/php-log/zipball/1cbe851640a58e83af8ef926d474b151e1bbb72d",
+                "reference": "1cbe851640a58e83af8ef926d474b151e1bbb72d",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -240,7 +240,7 @@
                 "log",
                 "php"
             ],
-            "time": "2019-11-30T10:00:01+00:00"
+            "time": "2019-11-30T13:09:01+00:00"
         },
         {
             "name": "baagee/php-mysql",

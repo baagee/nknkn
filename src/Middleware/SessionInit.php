@@ -28,10 +28,13 @@ class SessionInit extends MiddlewareAbstract
      */
     protected function handler(\Closure $next, $data)
     {
-        $sessionConfig = Config::get('session');
+        $sessionConfig = Config::get('session', []);
         if (!empty($sessionConfig)) {
             if ($sessionConfig['handler'] == Redis::class && !isset($sessionConfig['host'])) {
-                $redisConfig               = Config::get('redis');
+                $redisConfig = Config::get('redis', []);
+                if (empty($redisConfig)) {
+                    throw new \Exception("没找到redis配置文件");
+                }
                 $redisConfig['persistent'] = $redisConfig['pconnect'] ?? false;
                 unset($redisConfig['pconnect']);
                 $sessionConfig = array_merge($sessionConfig, $redisConfig);
