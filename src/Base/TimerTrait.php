@@ -20,6 +20,7 @@ trait TimerTrait
      * @param int      $retryTimes 重试次数
      * @param mixed    ...$args    函数参数
      * @return array [result,cost执行事件]
+     * @throws \Exception
      */
     protected static function executeTime(callable $func, $retryTimes = 0, ...$args)
     {
@@ -33,7 +34,7 @@ trait TimerTrait
                 break;
             } catch (\Exception $e) {
                 if ($_i >= $retryTimes) {
-                    break;
+                    throw $e;
                 } else {
                     $_i++;
                 }
