@@ -8,9 +8,11 @@
 
 namespace BaAGee\NkNkn;
 
+use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Base\ActionAbstract;
 use BaAGee\NkNkn\Base\TimerTrait;
+use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Onion\Onion;
 use BaAGee\Router\Base\RouterAbstract;
 use BaAGee\NkNkn\Middleware\CookieInit;
@@ -94,6 +96,8 @@ final class Router extends RouterAbstract
         //前面追加Cookie session初始化
         $commonMiddleware = [CookieInit::class, SessionInit::class];
         array_unshift($other, ...$commonMiddleware);
+        // 路由匹配结束后
+        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
         return self::eatingOnion(self::getRequestData($method, $params), $other, $callback);
     }
 

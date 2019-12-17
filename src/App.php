@@ -173,7 +173,7 @@ class App
      */
     final private function mysqlInit()
     {
-        $dbConfig = Config::get('mysql',[]);
+        $dbConfig = Config::get('mysql', []);
         if (!empty($dbConfig)) {
             // Db配置初始化
             DBConfig::init($dbConfig);
@@ -220,12 +220,12 @@ class App
         Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
 
         list(, $time) = self::executeTime(function () {
-            if (Config::get('app/is_debug',true) ||
+            if (Config::get('app/is_debug', true) ||
                 Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
                 Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
             }
             Router::setNotFound(function () {
-                $file = Config::get('app/404file','');
+                $file = Config::get('app/404file', '');
                 if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
                     header('Location: ' . $file);
                 } else {
@@ -245,10 +245,7 @@ class App
         list($response, $time) = self::executeTime(Router::class . '::dispatch',
             0, $_SERVER['PATH_INFO'], $_SERVER['REQUEST_METHOD']);
         echo $response;
-        Log::info(sprintf('Router dispatch time:%sms', $time));
-
-        // 路由匹配&执行结束
-        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
+        Log::info(sprintf('Router dispatch and action run time:%sms', $time));
 
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
