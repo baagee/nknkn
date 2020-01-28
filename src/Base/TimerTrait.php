@@ -1,7 +1,7 @@
 <?php
 /**
  * Desc: 程序执行计时器
- * User: 01372412
+ * User: baagee
  * Date: 2019/11/6
  * Time: 下午2:57
  */
@@ -19,7 +19,7 @@ trait TimerTrait
      * @param callable $func       运行函数
      * @param int      $retryTimes 重试次数
      * @param mixed    ...$args    函数参数
-     * @return array [result,cost执行事件]
+     * @return array [result,cost执行时间]
      * @throws \Exception
      */
     protected static function executeTime(callable $func, $retryTimes = 0, ...$args)
