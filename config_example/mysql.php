@@ -3,17 +3,14 @@
 use BaAGee\NkNkn\AppEnv;
 
 return [
-    'host'             => '127.0.0.1',
-    'port'             => 5200,
-    'user'             => 'ppp',
-    'password'         => 'password',
-    'database'         => 'db',
-    'connectTimeout'   => 1,
-    'charset'          => 'utf8mb4',
-    'schemasCachePath' => implode(DIRECTORY_SEPARATOR, [
-        AppEnv::get('RUNTIME_PATH'), 'cache', 'schemas'
-    ]),
-    'slave'            => [
+    'host'           => '127.0.0.1',
+    'port'           => 5200,
+    'user'           => 'ppp',
+    'password'       => 'password',
+    'database'       => 'db',
+    'connectTimeout' => 1,
+    'charset'        => 'utf8mb4',
+    'slave'          => [
         [
             'host'           => '127.0.0.1',
             'port'           => 5200,
