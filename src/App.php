@@ -45,6 +45,12 @@ class App
                 $this->setTraceId();
                 // 配置初始化
                 $this->configInit();
+                if (Config::get('app/is_debug', true)) {
+                    //开发模式及时 清空缓存
+                    $this->removeCache(
+                        AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
+                    );
+                }
                 //设置时区
                 $this->setTimezone();
                 // 注册错误提示
@@ -175,6 +181,9 @@ class App
     {
         $dbConfig = Config::get('mysql', []);
         if (!empty($dbConfig)) {
+            $dbConfig['schemasCachePath'] = implode(DIRECTORY_SEPARATOR, [
+                AppEnv::get('RUNTIME_PATH'), 'cache', 'schemas'
+            ]);
             // Db配置初始化
             DBConfig::init($dbConfig);
             // Sql记录到Log
@@ -208,6 +217,28 @@ class App
         } else {
             // 命令行下
             $this->cli($argv ?? []);
+        }
+    }
+
+    /**
+     * 删除缓存
+     * @param $path
+     */
+    final private function removeCache($path)
+    {
+        if (is_dir($path)) {
+            $p = scandir($path);
+            foreach ($p as $val) {
+                if ($val != "." && $val != "..") {
+                    if (is_dir($path . $val)) {
+                        $path_ = $path . $val . DIRECTORY_SEPARATOR;
+                        $this->removeCache($path_);
+                        rmdir($path_);
+                    } else {
+                        unlink($path . $val);
+                    }
+                }
+            }
         }
     }
 
