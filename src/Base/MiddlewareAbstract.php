@@ -23,6 +23,7 @@ abstract class MiddlewareAbstract extends LayerAbstract
      * @param \Closure $next
      * @param          $data
      * @return mixed
+     * @throws \Exception
      */
     final public function exec(\Closure $next, $data)
     {

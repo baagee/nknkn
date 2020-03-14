@@ -91,6 +91,7 @@ class Redis
      * @param $name
      * @param $arguments
      * @return bool|mixed
+     * @throws \Exception
      */
     public function __call($name, $arguments)
     {

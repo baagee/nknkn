@@ -4,12 +4,23 @@ namespace BaAGee\NkNkn\Base;
 
 use BaAGee\Log\Log;
 
+/**
+ * Class EventAbstract
+ * @package BaAGee\NkNkn\Base
+ */
 abstract class EventAbstract
 {
     use TimerTrait;
 
+    /**
+     * @param null $args
+     * @return mixed
+     */
     abstract protected function run($args = null);
 
+    /**
+     * @throws \Exception
+     */
     final public function main()
     {
         Log::info(sprintf('%s start!', static::class));
