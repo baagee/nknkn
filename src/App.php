@@ -81,10 +81,10 @@ class App
                     $obj = new $event();
                     Event::listen($name, [$obj, 'main']);
                 } else {
-                    Log::warning($event . ' 没有继承 ' . EventAbstract::class);
+                    Log::warning($event . ' not extend ' . EventAbstract::class);
                 }
             } else {
-                Log::warning($event . ' 事件类找不到');
+                Log::warning($event . ' event class not found');
             }
         };
         $events = Config::get('event', []);

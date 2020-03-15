@@ -69,13 +69,13 @@ class Redis
                     }
                 }
                 if ($res == false) {
-                    Log::emergency('连接redis失败：' . json_encode($config));
-                    throw new \Exception('连接Redis失败');
+                    Log::emergency('Connect redis failed：' . json_encode($config));
+                    throw new \Exception('Connect redis failed');
                 }
                 if (!empty($config['password'])) {
                     $res = $redisObj->auth($config['password']);
                     if ($res == false) {
-                        Log::emergency('连接redis失败, 密码错误：' . json_encode($config));
+                        Log::emergency('Connect redis failed, invalid password：' . json_encode($config));
                         throw new \Exception('连接redis失败, 密码错误');
                     }
                 }
