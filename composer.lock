@@ -4,8 +4,47 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5dd8ded022fcd65e2fc6c4decee1f9f7",
+    "content-hash": "86dab5832e0be10c3d504a62dfbd6f6b",
     "packages": [
+        {
+            "name": "baagee/async-task",
+            "version": "v0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/async-task.git",
+                "reference": "d51faf94b08108e246a7a8eb9597cb109966b6a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/async-task/zipball/d51faf94b08108e246a7a8eb9597cb109966b6a2",
+                "reference": "d51faf94b08108e246a7a8eb9597cb109966b6a2",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\AsyncTask\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BaAGee",
+                    "email": "2274313786@qq.com"
+                }
+            ],
+            "description": "php process task library",
+            "time": "2020-03-19T14:24:47+00:00"
+        },
         {
             "name": "baagee/php-config",
             "version": "v0.0.4",

@@ -15,6 +15,7 @@
 "baagee/php-cookie" //Cookie管理类
 "baagee/php-event" //事件定义触发类
 "baagee/php-curl-request" //Curl请求类
+"baagee/async-task" //异步执行任务脚本类
 ```
 
 ## 框架目录结构

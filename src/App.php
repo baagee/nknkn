@@ -8,6 +8,7 @@
 
 namespace BaAGee\NkNkn;
 
+use BaAGee\AsyncTask\TaskBase;
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
 use BaAGee\Event\Event;
@@ -25,7 +26,7 @@ use BaAGee\Wtf\WtfError;
  * Class App
  * @package BaAGee\NkNkn
  */
-class App
+class App extends TaskBase
 {
     use TimerTrait;
     /**
@@ -208,15 +209,16 @@ class App
     }
 
     /**
+     * @param array $params
      * @throws \Exception
      */
-    final public function run()
+    final public function run($params = [])
     {
         if (PHP_SAPI !== 'cli') {
             $this->cgi();
         } else {
             // 命令行下
-            $this->cli($argv ?? []);
+            $this->cli($params ?? []);
         }
     }
 
