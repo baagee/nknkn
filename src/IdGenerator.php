@@ -29,10 +29,12 @@ final class IdGenerator
     final public static function getOne(bool $useRedis = true)
     {
         if ($useRedis) {
-            $redis = Redis::getConnection();
-            $key   = self::KEY_PREFIX . Config::get('app/app_name', '');
-            return intval(time() * 10000 + $redis->incr($key) * 10000 + rand(0, 10000));
+            $redis  = Redis::getConnection();
+            $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
+            $number = $redis->incr($key);
+            return self::getBySeq($number, 1, 0);
         } else {
+            // 随机生成 短时间大量生成可能有重复的 可以使用getList或者getYield批量生成
             return intval(microtime(true) * 1000000) + mt_rand(1000000, 9999999);
         }
     }
@@ -50,13 +52,25 @@ final class IdGenerator
             $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
             $number = $redis->incrby($key, $count);
             for ($i = 0; $i < $count; $i++) {
-                yield intval(time() * 10000 + ($number - $count + $i + 1) * 10000 + rand(0, 10000));
+                yield self::getBySeq($number, $count, $i);
             }
         } else {
             for ($i = 0; $i < $count; $i++) {
-                yield intval(microtime(true) * 1000000) + mt_rand(1000000, 9999999);
+                yield self::getOne(false);
             }
         }
+    }
+
+    /**
+     * 生成算法
+     * @param $number
+     * @param $count
+     * @param $seq
+     * @return int
+     */
+    final private static function getBySeq($number, $count, $seq)
+    {
+        return intval(time() * 1000000 + ($number - $count + $seq + 1) * 1000000 + rand(0, 1000000));
     }
 
     /**
@@ -73,12 +87,18 @@ final class IdGenerator
             $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
             $number = $redis->incrby($key, $count);
             for ($i = 0; $i < $count; $i++) {
-                $idList[] = intval(time() * 10000 + ($number - $count + $i + 1) * 10000 + rand(0, 10000));
+                $idList[] = self::getBySeq($number, $count, $i);
             }
         } else {
             for ($i = 0; $i < $count; $i++) {
-                $idList[] = intval(microtime(true) * 1000000) + mt_rand(1000000, 9999999);
+                $id = self::getOne(false);
+                if (isset($idList[$id])) {
+                    $i--;
+                    continue;
+                }
+                $idList[$id] = '';
             }
+            $idList = array_keys($idList);
         }
         return $idList;
     }
