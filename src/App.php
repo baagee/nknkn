@@ -64,7 +64,7 @@ class App extends TaskBase
                 // 注册事件
                 $this->registerEvents();
                 // 异步任务
-                $this->syncTaskInit();
+                $this->asyncTaskInit();
                 self::$isInit = true;
             });
             Log::info(sprintf('App init time:%sms', $time));
@@ -150,13 +150,13 @@ class App extends TaskBase
     /**
      * 异步任务模块初始化
      */
-    final private function syncTaskInit()
+    final private function asyncTaskInit()
     {
-        $taskConfig = Config::get('app/sync_task', []);
-        $maxTask    = intval($taskConfig['max_task'] ?? 0);
-        if ($maxTask > 0 && isset($taskConfig['lock_file']) && !empty($taskConfig['lock_file'] ?? '')) {
-            TaskScheduler::init($taskConfig['lock_file'], $maxTask);
-        }
+        $taskConfig = Config::get('app/async_task', []);
+        $maxTask    = intval($taskConfig['max_task'] ?? 10);
+        $maxTask    = $maxTask <= 0 ? 10 : $maxTask;
+        $lockFile   = $taskConfig['lock_file'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_lock';
+        TaskScheduler::init($lockFile, $maxTask);
     }
 
     /**
