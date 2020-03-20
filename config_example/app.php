@@ -1,9 +1,5 @@
 <?php
 
-use BaAGee\Log\Handler\FileLog;
-use BaAGee\NkNkn\AppEnv;
-use \BaAGee\NkNkn\LogFormatter;
-
 return [
     'app_name'             => 'app_name',
     'timezone'             => 'PRC',
