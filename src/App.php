@@ -9,6 +9,7 @@
 namespace BaAGee\NkNkn;
 
 use BaAGee\AsyncTask\TaskBase;
+use BaAGee\AsyncTask\TaskScheduler;
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
 use BaAGee\Event\Event;
@@ -62,6 +63,8 @@ class App extends TaskBase
                 $this->logInit();
                 // 注册事件
                 $this->registerEvents();
+                // 异步任务
+                $this->syncTaskInit();
                 self::$isInit = true;
             });
             Log::info(sprintf('App init time:%sms', $time));
@@ -141,6 +144,18 @@ class App extends TaskBase
             }
         } else {
             throw new \Exception("没有log配置文件");
+        }
+    }
+
+    /**
+     * 异步任务模块初始化
+     */
+    final private function syncTaskInit()
+    {
+        $taskConfig = Config::get('app/sync_task', []);
+        $maxTask    = intval($taskConfig['max_task'] ?? 0);
+        if ($maxTask > 0 && isset($taskConfig['lock_file']) && !empty($taskConfig['lock_file'] ?? '')) {
+            TaskScheduler::init($taskConfig['lock_file'], $maxTask);
         }
     }
 
