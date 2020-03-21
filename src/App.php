@@ -36,35 +36,35 @@ class App extends TaskBase
     protected static $isInit = false;
 
     /**
-     * App constructor.
+     * App初始化
      * @throws \Exception
      */
-    final public function __construct()
+    final public static function init()
     {
         if (self::$isInit === false) {
             list(, $time) = self::executeTime(function () {
                 // 设置本次请求的ID
-                $this->setTraceId();
+                self::setTraceId();
                 // 配置初始化
-                $this->configInit();
+                self::configInit();
                 if (Config::get('app/is_debug', true)) {
                     //开发模式及时 清空缓存
-                    $this->removeCache(
+                    self::removeCache(
                         AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
                     );
                 }
                 //设置时区
-                $this->setTimezone();
+                self::setTimezone();
                 // 注册错误提示
-                $this->wtfInit();
+                self::wtfInit();
                 //数据库初始化
-                $this->mysqlInit();
+                self::mysqlInit();
                 // Log初始化
-                $this->logInit();
+                self::logInit();
                 // 注册事件
-                $this->registerEvents();
+                self::registerEvents();
                 // 异步任务
-                $this->asyncTaskInit();
+                self::asyncTaskInit();
                 self::$isInit = true;
             });
             Log::info(sprintf('App init time:%sms', $time));
@@ -75,9 +75,18 @@ class App extends TaskBase
     }
 
     /**
+     * App constructor.
+     * @throws \Exception
+     */
+    final public function __construct()
+    {
+        self::init();
+    }
+
+    /**
      * 注册事件
      */
-    final protected function registerEvents()
+    final private static function registerEvents()
     {
         $func   = function ($name, $event) {
             if (class_exists($event)) {
@@ -108,7 +117,7 @@ class App extends TaskBase
     /**
      * 设置时区
      */
-    final private function setTimezone()
+    final private static function setTimezone()
     {
         $tz = Config::get('app/timezone', '');
         if (!empty($tz)) {
@@ -119,7 +128,7 @@ class App extends TaskBase
     /**
      * 设置请求ID
      */
-    final private function setTraceId()
+    final private static function setTraceId()
     {
         if (isset($_SERVER['HTTP_X_TRACE_ID']) && !empty($_SERVER['HTTP_X_TRACE_ID'])) {
             AppEnv::set('TRACE_ID', $_SERVER['HTTP_X_TRACE_ID']);
@@ -132,7 +141,7 @@ class App extends TaskBase
      * Log初始化
      * @throws \Exception
      */
-    final private function logInit()
+    final private static function logInit()
     {
         $logConfig = Config::get('log', []);
         if (!empty($logConfig)) {
@@ -150,7 +159,7 @@ class App extends TaskBase
     /**
      * 异步任务模块初始化
      */
-    final private function asyncTaskInit()
+    final private static function asyncTaskInit()
     {
         $taskConfig = Config::get('app/async_task', []);
         $maxTask    = intval($taskConfig['max_task'] ?? 10);
@@ -163,7 +172,7 @@ class App extends TaskBase
      * 配置初始化
      * @throws \Exception
      */
-    final private function configInit()
+    final private static function configInit()
     {
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
@@ -177,7 +186,7 @@ class App extends TaskBase
      * 错误信息展示初始化
      * @throws \Exception
      */
-    final private function wtfInit()
+    final private static function wtfInit()
     {
         // 注册错误提示
         WtfError::register(new WtfHandler([
@@ -193,7 +202,7 @@ class App extends TaskBase
      * mysql配置初始化
      * @throws \Exception
      */
-    final private function mysqlInit()
+    final private static function mysqlInit()
     {
         $dbConfig = Config::get('mysql', []);
         if (!empty($dbConfig)) {
@@ -241,7 +250,7 @@ class App extends TaskBase
      * 删除缓存
      * @param $path
      */
-    final private function removeCache($path)
+    final private static function removeCache($path)
     {
         if (is_dir($path)) {
             $p = scandir($path);
@@ -249,7 +258,7 @@ class App extends TaskBase
                 if ($val != "." && $val != "..") {
                     if (is_dir($path . $val)) {
                         $path_ = $path . $val . DIRECTORY_SEPARATOR;
-                        $this->removeCache($path_);
+                        self::removeCache($path_);
                         rmdir($path_);
                     } else {
                         unlink($path . $val);
