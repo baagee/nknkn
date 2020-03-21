@@ -50,7 +50,7 @@ class App extends TaskBase
                 if (Config::get('app/is_debug', true)) {
                     //开发模式及时 清空缓存
                     self::removeCache(
-                        AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR
+                        AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache'
                     );
                 }
                 //设置时区
@@ -243,6 +243,9 @@ class App extends TaskBase
             $this->cgi();
         } else {
             // 命令行下
+            if (empty($params)) {
+                $params = $argv ?? [];
+            }
             $this->cli($params ?? []);
         }
     }
@@ -257,12 +260,12 @@ class App extends TaskBase
             $p = scandir($path);
             foreach ($p as $val) {
                 if ($val != "." && $val != "..") {
-                    if (is_dir($path . $val)) {
-                        $path_ = $path . $val . DIRECTORY_SEPARATOR;
-                        self::removeCache($path_);
-                        rmdir($path_);
+                    $file = $path . DIRECTORY_SEPARATOR . $val;
+                    if (is_dir($file)) {
+                        self::removeCache($file);
+                        rmdir($file);
                     } else {
-                        unlink($path . $val);
+                        unlink($file);
                     }
                 }
             }
