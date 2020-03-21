@@ -165,7 +165,8 @@ class App extends TaskBase
         $maxTask    = intval($taskConfig['max_task'] ?? 10);
         $maxTask    = $maxTask <= 0 ? 10 : $maxTask;
         $lockFile   = $taskConfig['lock_file'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_lock';
-        TaskScheduler::init($lockFile, $maxTask);
+        $taskOutput = $taskConfig['output_dir'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_output';
+        TaskScheduler::init($lockFile, $maxTask, $taskOutput);
     }
 
     /**
