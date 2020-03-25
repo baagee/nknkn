@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "baagee/async-task",
-            "version": "v0.0.9",
+            "version": "v0.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/async-task.git",
-                "reference": "173d77dd23cca3e955544fcfc554650cfc79a119"
+                "reference": "5460cb0723105b015dc0b02572280ceef669cf69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/async-task/zipball/173d77dd23cca3e955544fcfc554650cfc79a119",
-                "reference": "173d77dd23cca3e955544fcfc554650cfc79a119",
+                "url": "https://api.github.com/repos/baagee/async-task/zipball/5460cb0723105b015dc0b02572280ceef669cf69",
+                "reference": "5460cb0723105b015dc0b02572280ceef669cf69",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -43,7 +43,7 @@
                 }
             ],
             "description": "php process task library",
-            "time": "2020-03-22T14:35:28+00:00"
+            "time": "2020-03-23T09:10:26+00:00"
         },
         {
             "name": "baagee/php-config",
