@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86dab5832e0be10c3d504a62dfbd6f6b",
+    "content-hash": "d9bd7fbb4b3b86efe2827d76d08dc7bc",
     "packages": [
         {
             "name": "baagee/async-task",
-            "version": "v0.0.11",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/async-task.git",
-                "reference": "5460cb0723105b015dc0b02572280ceef669cf69"
+                "reference": "0f2b935ed24d220036b312c3e38bf45abf3e7ada"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/async-task/zipball/5460cb0723105b015dc0b02572280ceef669cf69",
-                "reference": "5460cb0723105b015dc0b02572280ceef669cf69",
+                "url": "https://api.github.com/repos/baagee/async-task/zipball/0f2b935ed24d220036b312c3e38bf45abf3e7ada",
+                "reference": "0f2b935ed24d220036b312c3e38bf45abf3e7ada",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -43,7 +43,7 @@
                 }
             ],
             "description": "php process task library",
-            "time": "2020-03-23T09:10:26+00:00"
+            "time": "2020-03-26T13:37:09+00:00"
         },
         {
             "name": "baagee/php-config",
