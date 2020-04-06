@@ -1,6 +1,6 @@
 <?php
 return [
-    'host'               => '10.188.60.200:8550',
+    'host'               => '127.0.0.1:8550',
     'timeout_ms'         => 1000,//读取超时 毫秒
     'connect_timeout_ms' => 1000, // 连接超时 毫秒
     'max_redirs'         => 1,

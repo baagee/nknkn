@@ -5,6 +5,6 @@ return [
     'port'       => 6379,
     'password'   => '',
     'pconnect'   => false,
-    'timeout'    => 1,
+    'timeout'    => 500,
     'retryTimes' => 2
 ];
