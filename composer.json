@@ -14,6 +14,9 @@
       "email": "2274313786@qq.com"
     }
   ],
+  "bin": [
+    "bin/creater"
+  ],
   "require": {
     "php": ">=7.1",
     "baagee/php-onion": "0.0.*",
