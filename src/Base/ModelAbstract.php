@@ -8,6 +8,7 @@
 
 namespace BaAGee\NkNkn\Base;
 
+use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SimpleTable;
 
 /**
@@ -17,7 +18,11 @@ use BaAGee\MySQL\SimpleTable;
 abstract class ModelAbstract
 {
     /**
-     * @var string
+     * @var string 数据库配置名
+     */
+    public static $configName = DBConfig::DEFAULT;
+    /**
+     * @var string 表名
      */
     public static $tableName = '';
     /**
@@ -31,6 +36,19 @@ abstract class ModelAbstract
      */
     public function __construct()
     {
+        //自动切换数据库
+        static::switchTo(static::$configName);
         $this->tableObj = SimpleTable::getInstance(static::$tableName);
+    }
+
+    /**
+     * 切换数据库
+     * @param string $name
+     * @throws \Exception
+     */
+    public static function switchTo(string $name)
+    {
+        DBConfig::switchTo($name);
+        static::$configName = $name;
     }
 }

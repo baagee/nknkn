@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d9bd7fbb4b3b86efe2827d76d08dc7bc",
+    "content-hash": "e1eab597cc63a32afa4492cd2d92f090",
     "packages": [
         {
             "name": "baagee/async-task",
@@ -283,16 +283,16 @@
         },
         {
             "name": "baagee/php-mysql",
-            "version": "v0.1.9",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-mysql.git",
-                "reference": "d0329f6540b3acf249c77a6ed3b27ad4ff759573"
+                "reference": "cf28451bf42f208545145b5827304d5fb394b197"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/d0329f6540b3acf249c77a6ed3b27ad4ff759573",
-                "reference": "d0329f6540b3acf249c77a6ed3b27ad4ff759573",
+                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/cf28451bf42f208545145b5827304d5fb394b197",
+                "reference": "cf28451bf42f208545145b5827304d5fb394b197",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -326,7 +326,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2019-11-29T08:11:49+00:00"
+            "time": "2020-04-12T14:25:14+00:00"
         },
         {
             "name": "baagee/php-onion",
