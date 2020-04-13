@@ -19,6 +19,10 @@ use BaAGee\MySQL\SimpleTable;
 abstract class ModelAbstract
 {
     /**
+     * @var array
+     */
+    protected static $selfMap = [];
+    /**
      * @var string 数据库配置名
      */
     public static $configName = DBConfig::DEFAULT;
@@ -54,6 +58,10 @@ abstract class ModelAbstract
     public static function switchTo(string $name = DBConfig::DEFAULT)
     {
         static::$configName = $name;
-        return new static();
+        if (!isset(static::$selfMap[$name])) {
+            $self = new static();
+            static::$selfMap[$name] = $self;
+        }
+        return static::$selfMap[$name];
     }
 }
