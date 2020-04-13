@@ -46,12 +46,12 @@ abstract class ModelAbstract
     }
 
     /**
-     * 切换当前表的数据库 需要重新new Model才生效
-     * @param $name
-     * @return static
+     * 切换当前表的数据库 需要重新new Model才生效 已自动new
+     * @param string $name mysql数据库配置名
+     * @return static 新的对象
      * @throws \Exception
      */
-    public static function switchTo(string $name)
+    public static function switchTo(string $name = DBConfig::DEFAULT)
     {
         static::$configName = $name;
         return new static();
