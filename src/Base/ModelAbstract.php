@@ -58,6 +58,7 @@ abstract class ModelAbstract
     public static function switchTo(string $name = DBConfig::DEFAULT)
     {
         static::$configName = $name;
+        DBConfig::switchTo($name);
         if (!isset(static::$selfMap[$name])) {
             $self = new static();
             static::$selfMap[$name] = $self;
