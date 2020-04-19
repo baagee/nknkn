@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1eab597cc63a32afa4492cd2d92f090",
+    "content-hash": "9dcae77627d4eea9c1c5e37dc66635a2",
     "packages": [
         {
             "name": "baagee/async-task",
@@ -561,6 +561,53 @@
                 "view"
             ],
             "time": "2019-10-28T09:04:29+00:00"
+        },
+        {
+            "name": "baagee/redis-tools",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/redis-tools.git",
+                "reference": "3eaf7ab084f66bbace6087bc940958e08175418c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/redis-tools/zipball/3eaf7ab084f66bbace6087bc940958e08175418c",
+                "reference": "3eaf7ab084f66bbace6087bc940958e08175418c",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\RedisTools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BaAGee",
+                    "email": "2274313786@qq.com"
+                }
+            ],
+            "description": "Redis distributed lock and current limiter",
+            "keywords": [
+                "distributed lock",
+                "limiter",
+                "redis"
+            ],
+            "time": "2020-04-19T14:43:42+00:00"
         },
         {
             "name": "baagee/wtf-error",

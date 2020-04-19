@@ -31,7 +31,8 @@
     "baagee/php-cookie": "0.0.*",
     "baagee/php-event": "0.0.*",
     "baagee/php-curl-request": "0.0.*",
-    "baagee/async-task": "0.1.*"
+    "baagee/async-task": "0.1.*",
+    "baagee/redis-tools": "0.0.*"
   },
   "autoload": {
     "psr-4": {
