@@ -16,6 +16,7 @@
 "baagee/php-event" //事件定义触发类
 "baagee/php-curl-request" //Curl请求类
 "baagee/async-task" //异步执行任务脚本类
+"baagee/redis-tools" //redis分布式抢占锁和限速器
 ```
 
 ## 框架目录结构
