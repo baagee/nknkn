@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'enable'       => true,//是否使用session
     'handler'      => '',//使用默认文件储存
     // 'handler'      => \BaAGee\Session\Handler\Redis::class,//使用redis储存
     // 'select'       => 2, // 操作库

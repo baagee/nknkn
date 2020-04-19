@@ -8,6 +8,7 @@
 
 namespace BaAGee\NkNkn;
 
+use BaAGee\Config\Config;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Base\ActionAbstract;
@@ -94,8 +95,16 @@ final class Router extends RouterAbstract
             throw new \Exception('不合法的callback路由回调');
         }
         //前面追加Cookie session初始化
-        $commonMiddleware = [CookieInit::class, SessionInit::class];
-        array_unshift($other, ...$commonMiddleware);
+        $commonMiddleware = [];
+        if (Config::get('cookie/enable', false) == true) {
+            $commonMiddleware[] = CookieInit::class;
+        }
+        if (Config::get('session/enable', false) == true) {
+            $commonMiddleware[] = SessionInit::class;
+        }
+        if (!empty($commonMiddleware)) {
+            array_unshift($other, ...$commonMiddleware);
+        }
         // 路由匹配结束后
         Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
         return self::eatingOnion(self::getRequestData($method, $params), $other, $callback);

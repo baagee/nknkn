@@ -47,12 +47,6 @@ class App extends TaskBase
                 self::setTraceId();
                 // 配置初始化
                 self::configInit();
-                if (Config::get('app/is_debug', true)) {
-                    //开发模式及时 清空缓存
-                    self::removeCache(
-                        AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache'
-                    );
-                }
                 //设置时区
                 self::setTimezone();
                 // 注册错误提示
@@ -177,9 +171,13 @@ class App extends TaskBase
     {
         // 配置初始化
         Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+        $cachePath = AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache';
         if (!Config::get('app/is_debug', true)) {
             // 不是开发调试模式 更快的读取配置信息
-            Config::fast(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache');
+            Config::fast($cachePath);
+        } else {
+            //开发模式及时 清空缓存
+            self::removeCache($cachePath);
         }
     }
 
