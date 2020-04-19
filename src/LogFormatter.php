@@ -41,7 +41,7 @@ class LogFormatter extends BaseLogFormatter
             'file'      => $file,
             'line'      => $line,
             'log'       => $log,
-        ], JSON_UNESCAPED_UNICODE);
+        ], JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -49,6 +49,9 @@ class LogFormatter extends BaseLogFormatter
      */
     protected static function getClientIp()
     {
+        if (PHP_SAPI == 'cli') {
+            return '127.0.0.1';
+        }
         $ip      = 'unknown';
         $unknown = 'unknown';
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] && strcasecmp($_SERVER['HTTP_X_FORWARDED_FOR'], $unknown)) {
