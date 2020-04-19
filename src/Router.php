@@ -150,8 +150,13 @@ final class Router extends RouterAbstract
             list($res, $time) = self::executeTime(function ($callback, $request) {
                 return call_user_func($callback, $request);
             }, 0, $callback, $request);
-
-            Log::info(sprintf('Action output %s  execute time：%sms', json_encode($res, JSON_UNESCAPED_UNICODE), $time));
+            $retStr = '';
+            if (is_array($res) || is_object($res)) {
+                $retStr = json_encode($res, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            } elseif (!is_resource($res)) {
+                $retStr = (string)$res;
+            }
+            Log::info(sprintf('Action output %s  execute time：%sms', $retStr, $time));
             return $res;
         });
     }
