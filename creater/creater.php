@@ -6,6 +6,7 @@ if (count($argv) < 2) {
 }
 
 $rootPath = realpath($argv[1]);
+$appName = $argv[2] ?? 'app';
 $composerFile = $rootPath . '/composer.json';
 if (!is_file($composerFile)) {
     echo "项目根目录没有composer.json文件" . PHP_EOL;
@@ -99,8 +100,25 @@ function copyFile($fileOrDir, $destDir)
     }
 }
 
+function randomString($len = 10)
+{
+    $a = 'qwertyuiop[]asdfghjkl;/.,mnbvcxz1234567890-=+_)(*&^%$#@!~`';
+    $l = strlen($a) - 1;
+    $ret = '';
+    for ($i = 1; $i <= $len; $i++) {
+        $ret .= $a[mt_rand(0, $l)];
+    }
+    return $ret;
+}
+
 copyFile($configExamples, $configPath);
-echo '创建完成，注意修改app.app_name配置值' . PHP_EOL;
+$_code = file_get_contents($configPath . '/cookie.php');
+$_code = str_replace("{{encryptkey}}", randomString(50), $_code);
+file_put_contents($configPath . '/cookie.php', $_code);
+
+$_code = file_get_contents($configPath . '/app.php');
+$_code = str_replace("{{app_name}}", $appName, $_code);
+file_put_contents($configPath . '/app.php', $_code);
 
 $routesFile = $rootPath . '/app/routes.php';
 $routesContent = <<<CODE
