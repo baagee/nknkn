@@ -1,7 +1,7 @@
 <?php
 
 if (count($argv) < 2) {
-    echo '请输入项目根目录' . PHP_EOL;
+    echo '使用方式: php vendor/bin/creater app_path app_name。 例如: php vendor/bin/creater ./ manage' . PHP_EOL;
     die();
 }
 
