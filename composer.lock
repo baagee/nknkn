@@ -237,16 +237,16 @@
         },
         {
             "name": "baagee/php-log",
-            "version": "v0.1.2",
+            "version": "0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-log.git",
-                "reference": "7e47c910b82176c82c168661c890976e9a98cd5b"
+                "reference": "6845bfd9a0d181051ecef7ef6f5374779ae49c83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-log/zipball/7e47c910b82176c82c168661c890976e9a98cd5b",
-                "reference": "7e47c910b82176c82c168661c890976e9a98cd5b",
+                "url": "https://api.github.com/repos/baagee/php-log/zipball/6845bfd9a0d181051ecef7ef6f5374779ae49c83",
+                "reference": "6845bfd9a0d181051ecef7ef6f5374779ae49c83",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -279,7 +279,7 @@
                 "log",
                 "php"
             ],
-            "time": "2020-03-14T06:59:37+00:00"
+            "time": "2020-04-23T07:49:12+00:00"
         },
         {
             "name": "baagee/php-mysql",
