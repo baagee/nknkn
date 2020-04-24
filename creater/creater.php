@@ -102,7 +102,7 @@ function copyFile($fileOrDir, $destDir)
 
 function randomString($len = 10)
 {
-    $a = 'qwertyuiop[]asdfghjkl;/.,mnbvcxz1234567890-=+_)(*&^%$#@!~`';
+    $a = 'qwertyuiop[]asdfghjkl;/.,mnbvcxz1234567890-=+_)(*&^%$#@!~`QAZWSXEDCRFVTGBYHNUJMIK<OLP\?":}{|>';
     $l = strlen($a) - 1;
     $ret = '';
     for ($i = 1; $i <= $len; $i++) {
@@ -112,11 +112,8 @@ function randomString($len = 10)
 }
 
 copyFile($configExamples, $configPath);
-$_code = file_get_contents($configPath . '/cookie.php');
-$_code = str_replace("{{encryptkey}}", randomString(50), $_code);
-file_put_contents($configPath . '/cookie.php', $_code);
-
 $_code = file_get_contents($configPath . '/app.php');
+$_code = str_replace("{{secret_key}}", randomString(50), $_code);
 $_code = str_replace("{{app_name}}", $appName, $_code);
 file_put_contents($configPath . '/app.php', $_code);
 

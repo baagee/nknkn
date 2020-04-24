@@ -26,8 +26,9 @@ class CookieInit extends MiddlewareAbstract
      */
     protected function handler(\Closure $next, $data)
     {
-        $cookieConfig = Config::get('cookie',[]);
+        $cookieConfig = Config::get('cookie', []);
         if (!empty($cookieConfig)) {
+            $cookieConfig['encryptkey'] = Config::get('app/secret_key', '');
             Cookie::init($cookieConfig);
             Log::info('Cookie init');
         }

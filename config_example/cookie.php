@@ -9,5 +9,4 @@ return [
     'secure'     => false, //  cookie 启用安全传输
     'httponly'   => true, // httponly 设置
     'setcookie'  => true, // 是否使用 setcookie
-    'encryptkey' => '{{encryptkey}}',//是否加密，有值cookie就加密
 ];
