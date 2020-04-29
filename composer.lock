@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9dcae77627d4eea9c1c5e37dc66635a2",
+    "content-hash": "4908e69afcbbb9e7162533c39ced0b33",
     "packages": [
         {
             "name": "baagee/async-task",
-            "version": "0.1.0",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/async-task.git",
-                "reference": "0f2b935ed24d220036b312c3e38bf45abf3e7ada"
+                "reference": "2f741176b06d591d1e36359f417723156d3b4fe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/async-task/zipball/0f2b935ed24d220036b312c3e38bf45abf3e7ada",
-                "reference": "0f2b935ed24d220036b312c3e38bf45abf3e7ada",
+                "url": "https://api.github.com/repos/baagee/async-task/zipball/2f741176b06d591d1e36359f417723156d3b4fe7",
+                "reference": "2f741176b06d591d1e36359f417723156d3b4fe7",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -43,7 +43,7 @@
                 }
             ],
             "description": "php process task library",
-            "time": "2020-03-26T13:37:09+00:00"
+            "time": "2020-04-25T09:30:48+00:00"
         },
         {
             "name": "baagee/php-config",
@@ -425,16 +425,16 @@
         },
         {
             "name": "baagee/php-router",
-            "version": "v0.1.3",
+            "version": "v0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-router.git",
-                "reference": "cc3f6a0053b9df8417eaeeb7da7e1e073bf1e93e"
+                "reference": "7f88f094c20def2c36acf7c540d4c256ab8c0bb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-router/zipball/cc3f6a0053b9df8417eaeeb7da7e1e073bf1e93e",
-                "reference": "cc3f6a0053b9df8417eaeeb7da7e1e073bf1e93e",
+                "url": "https://api.github.com/repos/baagee/php-router/zipball/7f88f094c20def2c36acf7c540d4c256ab8c0bb1",
+                "reference": "7f88f094c20def2c36acf7c540d4c256ab8c0bb1",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -467,7 +467,7 @@
                 "php",
                 "router"
             ],
-            "time": "2020-02-08T12:08:06+00:00"
+            "time": "2020-04-29T07:51:16+00:00"
         },
         {
             "name": "baagee/php-session",
@@ -517,16 +517,16 @@
         },
         {
             "name": "baagee/php-template",
-            "version": "v0.0.2",
+            "version": "v0.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-template.git",
-                "reference": "ce1b8d1914dfde441447c482f40f67d0de13c39f"
+                "reference": "9635838657e6e4479ffa00f43196e2030bacb2cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-template/zipball/ce1b8d1914dfde441447c482f40f67d0de13c39f",
-                "reference": "ce1b8d1914dfde441447c482f40f67d0de13c39f",
+                "url": "https://api.github.com/repos/baagee/php-template/zipball/9635838657e6e4479ffa00f43196e2030bacb2cb",
+                "reference": "9635838657e6e4479ffa00f43196e2030bacb2cb",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -560,7 +560,7 @@
                 "template",
                 "view"
             ],
-            "time": "2019-10-28T09:04:29+00:00"
+            "time": "2020-04-25T09:32:03+00:00"
         },
         {
             "name": "baagee/redis-tools",
@@ -611,16 +611,16 @@
         },
         {
             "name": "baagee/wtf-error",
-            "version": "v0.0.4",
+            "version": "v0.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/wtf-error.git",
-                "reference": "b89fa49153fa938c2eadd6b575392743ffb621d1"
+                "reference": "4e3b1e5c16ca622c6c1f1b6fd88aab3caf47e808"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/wtf-error/zipball/b89fa49153fa938c2eadd6b575392743ffb621d1",
-                "reference": "b89fa49153fa938c2eadd6b575392743ffb621d1",
+                "url": "https://api.github.com/repos/baagee/wtf-error/zipball/4e3b1e5c16ca622c6c1f1b6fd88aab3caf47e808",
+                "reference": "4e3b1e5c16ca622c6c1f1b6fd88aab3caf47e808",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -650,7 +650,7 @@
                 "error",
                 "php"
             ],
-            "time": "2019-08-29T05:36:57+00:00"
+            "time": "2020-04-25T09:29:24+00:00"
         }
     ],
     "packages-dev": [],

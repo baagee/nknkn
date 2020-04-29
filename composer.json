@@ -19,20 +19,20 @@
   ],
   "require": {
     "php": ">=7.1",
-    "baagee/php-onion": "0.0.*",
-    "baagee/php-params-validator": "0.0.*",
+    "baagee/php-onion": "0.*.*",
+    "baagee/php-params-validator": "0.*.*",
     "baagee/php-mysql": "0.*.*",
-    "baagee/php-router": "0.1.*",
-    "baagee/php-config": "0.0.*",
-    "baagee/php-log": "0.1.*",
-    "baagee/wtf-error": "0.0.*",
-    "baagee/php-template": "0.0.*",
-    "baagee/php-session": "0.0.*",
-    "baagee/php-cookie": "0.0.*",
-    "baagee/php-event": "0.0.*",
-    "baagee/php-curl-request": "0.0.*",
-    "baagee/async-task": "0.1.*",
-    "baagee/redis-tools": "0.0.*"
+    "baagee/php-router": "0.*.*",
+    "baagee/php-config": "0.*.*",
+    "baagee/php-log": "0.*.*",
+    "baagee/wtf-error": "0.*.*",
+    "baagee/php-template": "0.*.*",
+    "baagee/php-session": "0.*.*",
+    "baagee/php-cookie": "0.*.*",
+    "baagee/php-event": "0.*.*",
+    "baagee/php-curl-request": "0.*.*",
+    "baagee/async-task": "0.*.*",
+    "baagee/redis-tools": "0.*.*"
   },
   "autoload": {
     "psr-4": {
