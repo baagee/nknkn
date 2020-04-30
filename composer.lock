@@ -425,16 +425,16 @@
         },
         {
             "name": "baagee/php-router",
-            "version": "v0.1.6",
+            "version": "v0.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-router.git",
-                "reference": "7f88f094c20def2c36acf7c540d4c256ab8c0bb1"
+                "reference": "b20e919af540b9553b0e7433220cfa2d30eb8103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-router/zipball/7f88f094c20def2c36acf7c540d4c256ab8c0bb1",
-                "reference": "7f88f094c20def2c36acf7c540d4c256ab8c0bb1",
+                "url": "https://api.github.com/repos/baagee/php-router/zipball/b20e919af540b9553b0e7433220cfa2d30eb8103",
+                "reference": "b20e919af540b9553b0e7433220cfa2d30eb8103",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -467,7 +467,7 @@
                 "php",
                 "router"
             ],
-            "time": "2020-04-29T07:51:16+00:00"
+            "time": "2020-04-30T03:43:23+00:00"
         },
         {
             "name": "baagee/php-session",
