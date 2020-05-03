@@ -22,14 +22,16 @@ abstract class ModelAbstract
      * @var array
      */
     protected static $selfMap = [];
+
     /**
-     * @var string 数据库配置名
+     * @var string
      */
-    public static $configName = DBConfig::DEFAULT;
+    protected static $configName = DBConfig::DEFAULT;
+
     /**
      * @var string 表名
      */
-    public static $tableName = '';
+    protected static $tableName = '';
     /**
      * @var SimpleTable
      */
@@ -41,28 +43,39 @@ abstract class ModelAbstract
      */
     public function __construct()
     {
+        DBConfig::switchTo(static::$configName);
+        Log::info(sprintf("%s切换数据库到%s", static::$tableName, static::$configName));
         //自动切换数据库
-        $name = static::$configName ?? self::$configName;
-        DBConfig::switchTo($name);
-        static::$configName = $name;
-        Log::info(static::$tableName . ' 切换数据库到：' . $name);
         $this->tableObj = SimpleTable::getInstance(static::$tableName);
     }
 
     /**
-     * 切换当前表的数据库 需要重新new Model才生效 已自动new
-     * @param string $name mysql数据库配置名
-     * @return static 新的对象
+     * 获取对象
+     * @return static
      * @throws \Exception
      */
-    public static function switchTo(string $name = DBConfig::DEFAULT)
+    final public static function getInstance()
     {
-        static::$configName = $name;
-        DBConfig::switchTo($name);
-        if (!isset(static::$selfMap[$name])) {
+        if (!isset(static::$selfMap[static::$tableName])) {
             $self = new static();
-            static::$selfMap[$name] = $self;
+            static::$selfMap[static::$tableName] = $self;
+        } else {
+            DBConfig::switchTo(static::$configName);
+            Log::info(sprintf("%s切换数据库到%s", static::$tableName, static::$configName));
         }
-        return static::$selfMap[$name];
+        return static::$selfMap[static::$tableName];
+    }
+
+    /**
+     * 切换数据库配置
+     * @param string $configName
+     * @return $this
+     * @throws \Exception
+     */
+    final public function switchTo($configName = DBConfig::DEFAULT)
+    {
+        DBConfig::switchTo($configName);
+        Log::info(sprintf("%s切换数据库到%s", static::$tableName, $configName));
+        return $this;
     }
 }
