@@ -78,4 +78,22 @@ abstract class ModelAbstract
         Log::info(sprintf("%s切换数据库到%s", static::$tableName, $configName));
         return $this;
     }
+
+    /**
+     * 获取当前数据库配置名
+     * @return string
+     */
+    final public static function getConfigName()
+    {
+        return static::$configName;
+    }
+
+    /**
+     * 获取表名
+     * @return string
+     */
+    final public static function getTableName()
+    {
+        return static::$tableName;
+    }
 }
