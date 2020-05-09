@@ -48,6 +48,33 @@ src
 └── UserNotice.php // 需要提示用户的Exception类
 ```
 
+## 快速开始
+通过 `php ./vendor/bin/creater composer.json_dir app_name` 来快速在vendor同级目录创建app相关目录和示例代码
+
+例如
+```
+$> php ./vendor/bin/creater ./ appName                                                                                                                                                                                                                [11:05:52]
+创建文件夹：app 成功
+创建文件夹：app/Action 成功
+创建文件夹：app/Controller 成功
+创建文件夹：app/Event 成功
+创建文件夹：app/Library 成功
+创建文件夹：app/Middleware 成功
+创建文件夹：app/Model 成功
+创建文件夹：app/Script 成功
+创建文件夹：app/View 成功
+创建文件夹：config 成功
+创建文件夹：runtime 成功
+创建文件夹：public 成功
+public/index.php 创建成功
+composer.json 添加自动加载命名空间App
+app/routes.php 创建成功
+app/Middleware/ReturnJson.php 创建成功
+app/Action/Test/Hello.php 创建成功
+尝试访问一下 /api/hello
+OVER
+```
+
 ## app目录结构
 必须的目录在vendor同级别有
 ```
