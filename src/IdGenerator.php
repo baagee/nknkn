@@ -9,6 +9,7 @@
 namespace BaAGee\NkNkn;
 
 use BaAGee\Config\Config;
+use BaAGee\Log\Log;
 
 /**
  * Class IdGenerator
@@ -19,7 +20,7 @@ final class IdGenerator
     /**
      * redis key前缀
      */
-    private const KEY_PREFIX = 'COMMON:ID:';
+    private const KEY_PREFIX = 'generator:id:';
 
     /**
      * @param bool $useRedis 是否使用redis生成
@@ -29,9 +30,7 @@ final class IdGenerator
     final public static function getOne(bool $useRedis = true)
     {
         if ($useRedis) {
-            $redis  = Redis::getConnection();
-            $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
-            $number = $redis->incr($key);
+            $number = self::getRedisSeq(1);
             return self::getBySeq($number, 1, 0);
         } else {
             // 随机生成 短时间大量生成可能有重复的 可以使用getList或者getYield批量生成
@@ -48,9 +47,7 @@ final class IdGenerator
     final public static function getYield(int $count, bool $useRedis = true)
     {
         if ($useRedis) {
-            $redis  = Redis::getConnection();
-            $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
-            $number = $redis->incrby($key, $count);
+            $number = self::getRedisSeq($count);
             for ($i = 0; $i < $count; $i++) {
                 yield self::getBySeq($number, $count, $i);
             }
@@ -77,7 +74,7 @@ final class IdGenerator
      */
     final private static function getBySeq($number, $count, $seq)
     {
-        return intval(time() * 1000000 + ($number - $count + $seq + 1) * 1000000 + rand(0, 1000000));
+        return intval(microtime(true) * 1000000 + ($number - $count + $seq + 1) * 1000000 + rand(1000000, 9999999));
     }
 
     /**
@@ -90,9 +87,7 @@ final class IdGenerator
     {
         $idList = [];
         if ($useRedis) {
-            $redis  = Redis::getConnection();
-            $key    = self::KEY_PREFIX . Config::get('app/app_name', '');
-            $number = $redis->incrby($key, $count);
+            $number = self::getRedisSeq($count);
             for ($i = 0; $i < $count; $i++) {
                 $idList[] = self::getBySeq($number, $count, $i);
             }
@@ -108,5 +103,23 @@ final class IdGenerator
             $idList = array_keys($idList);
         }
         return $idList;
+    }
+
+    /**
+     * 获取redis incr值
+     * @param $step
+     * @return int
+     */
+    final protected static function getRedisSeq($step)
+    {
+        try {
+            $redis = Redis::getConnection();
+            $key = self::KEY_PREFIX . Config::get('app/app_name', 'default');
+            $number = $redis->incrby($key, $step);
+        } catch (\Exception $e) {
+            $number = mt_rand(1, PHP_INT_MAX);
+            Log::alert(__METHOD__ . ' redis incrby error:' . $e->getMessage());
+        }
+        return $number;
     }
 }
