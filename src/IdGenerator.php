@@ -55,8 +55,15 @@ final class IdGenerator
                 yield self::getBySeq($number, $count, $i);
             }
         } else {
+            $idList = [];
             for ($i = 0; $i < $count; $i++) {
-                yield self::getOne(false);
+                $id = self::getOne(false);
+                if (isset($idList[$id])) {
+                    $i--;
+                    continue;
+                }
+                $idList[$id] = '';
+                yield $id;
             }
         }
     }
