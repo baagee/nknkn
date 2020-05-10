@@ -28,6 +28,7 @@ final class Router extends RouterAbstract
     use TimerTrait;
 
     /**
+     * 匹配到路由后调用方法
      * @param \Closure|string $callback
      * @param array           $params
      * @param string          $method
@@ -37,63 +38,21 @@ final class Router extends RouterAbstract
      */
     protected static function call($callback, $params, $method, $other)
     {
-        if ($callback instanceof \Closure) {
-        } elseif (is_string($callback) || is_array($callback)) {
-            if (is_string($callback)) {
-                if (strpos($callback, '@') !== false) {
-                    // 控制器@action
-                    $callback = explode('@', $callback);
-                    // 控制器名字 类名字
-                    $controllerName = $className = $callback[0];
-                    // 动作名字 执行类的方法
-                    $actionName = $methodName = $callback[1];
-                } elseif (class_exists($callback) && is_subclass_of($callback, ActionAbstract::class)) {
-                    // $actionClassName
-                    $className      = $callback;
-                    $methodName     = 'main';
-                    $tmp            = explode('\\', $className);
-                    $actionName     = array_pop($tmp);
-                    $controllerName = array_pop($tmp);
-                } else {
-                    throw new \Exception('不合法的callback路由回调');
-                }
-            } else {
-                $controllerName = $className = $callback[0];
-                $actionName     = $methodName = $callback[1];
-            }
+        $callback = self::getCallback($callback);
+        $middlewareList = self::getMiddlewareList($other);
+        // 路由匹配结束后
+        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
+        return self::eatingOnion(self::getRequestData($method, $params), $middlewareList, $callback);
+    }
 
-            if (class_exists($className)) {
-                $obj = new $className();
-                if (method_exists($obj, $methodName)) {
-                    $c = explode('\\', $className);
-                    if (count($c) >= 4) {
-                        if (in_array(strtolower($c[1]), [
-                            'action', 'controller', 'model', 'view'
-                        ])) {
-                            $moduleName = false;
-                        } else {
-                            // 多模块
-                            $moduleName = $c[1];
-                        }
-                    } else {
-                        // 单模块
-                        $moduleName = false;
-                    }
-                    $controllerName = array_pop(explode('\\', $controllerName));
-                    // var_dump($moduleName, $controllerName, $actionName);
-                    AppEnv::set('MODULE', $moduleName);
-                    AppEnv::set('CONTROLLER', $controllerName);
-                    AppEnv::set('ACTION', $actionName);
-                    $callback = [$obj, $methodName];
-                } else {
-                    throw new \Exception(sprintf('[%s]类的[%s]方法不存在', $className, $methodName));
-                }
-            } else {
-                throw new \Exception(sprintf('[%s]类不存在', $className));
-            }
-        } else {
-            throw new \Exception('不合法的callback路由回调');
-        }
+    /**
+     * 获取中间件列表
+     * @param $other
+     * @return mixed
+     */
+    protected static function getMiddlewareList($other): array
+    {
+        $other = (array)$other;
         //前面追加Cookie session初始化
         $commonMiddleware = [];
         if (Config::get('cookie/enable', false) == true) {
@@ -105,14 +64,67 @@ final class Router extends RouterAbstract
         if (!empty($commonMiddleware)) {
             array_unshift($other, ...$commonMiddleware);
         }
-        // 路由匹配结束后
-        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
-        return self::eatingOnion(self::getRequestData($method, $params), $other, $callback);
+        return $other;
     }
 
     /**
-     * @param $method
-     * @param $params
+     * 获取回调函数
+     * @param $callback
+     * @return array|ActionAbstract|\Closure|false|string|string[]
+     * @throws \Exception
+     */
+    protected static function getCallback($callback)
+    {
+        if ($callback instanceof \Closure) {
+        } elseif (is_string($callback) || is_array($callback)) {
+            if (is_string($callback)) {
+                if (strpos($callback, '@') !== false) {
+                    $callback = explode('@', $callback);// 控制器@action
+                    $controllerName = $className = $callback[0];// 控制器名字 类名字
+                    $actionName = $methodName = $callback[1];// 动作名字 执行类的方法
+                } elseif (class_exists($callback) && is_subclass_of($callback, ActionAbstract::class)) {
+                    // $actionClassName
+                    $className = $callback;
+                    $methodName = 'main';
+                    $tmp = explode('\\', $className);
+                    $actionName = array_pop($tmp);
+                    $controllerName = array_pop($tmp);
+                } else {
+                    throw new \Exception('不合法的callback路由回调');
+                }
+            } else {
+                $controllerName = $className = $callback[0];
+                $actionName = $methodName = $callback[1];
+            }
+
+            if (!class_exists($className)) {
+                throw new \Exception(sprintf('[%s]类不存在', $className));
+            }
+            $obj = new $className();
+            if (!method_exists($obj, $methodName)) {
+                throw new \Exception(sprintf('[%s]类的[%s]方法不存在', $className, $methodName));
+            }
+            $c = explode('\\', $className);
+            $moduleName = count($c) >= 4 ? (in_array(strtolower($c[1]), [
+                'action', 'controller', 'model', 'view'
+            ]) ? false : $c[1]) : false;
+            $arr = explode('\\', $controllerName);
+            $controllerName = array_pop($arr);
+            // var_dump($moduleName, $controllerName, $actionName);
+            AppEnv::set('MODULE', $moduleName);
+            AppEnv::set('CONTROLLER', $controllerName);
+            AppEnv::set('ACTION', $actionName);
+            $callback = [$obj, $methodName];
+        } else {
+            throw new \Exception('不合法的callback路由回调');
+        }
+        return $callback;
+    }
+
+    /**
+     * 获取请求参数
+     * @param string $method 请求方法
+     * @param array  $params 路由中的参数
      * @return array
      */
     protected static function getRequestData($method, $params)
@@ -145,15 +157,14 @@ final class Router extends RouterAbstract
     }
 
     /**
-     * @param $data
-     * @param $layer
-     * @param $callback
+     * @param array $data  request params
+     * @param array $layer middleware list
+     * @param       $callback
      * @return mixed
      */
     protected static function eatingOnion($data, $layer, $callback)
     {
-        $onion = new Onion();
-        return $onion->send($data)->through($layer)->then(function ($request) use ($callback) {
+        return (new Onion())->send($data)->through($layer)->then(function ($request) use ($callback) {
             Log::info('Action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
 
             list($res, $time) = self::executeTime(function ($callback, $request) {
@@ -171,6 +182,7 @@ final class Router extends RouterAbstract
     }
 
     /**
+     * 初始化路由
      * @param array $routers
      * @throws \Exception
      */
