@@ -39,7 +39,7 @@ abstract class ActionAbstract
     public function main(array $params = [])
     {
         if (!empty($this->paramRules)) {
-            $params = $this->batchCheckParams($params, $this->paramRules);
+            $params = self::batchCheckParams($params, $this->paramRules);
         }
         return $this->execute($params);
     }
