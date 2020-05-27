@@ -6,11 +6,11 @@
  * Time: 下午2:57
  */
 
-namespace BaAGee\NkNkn\Base;
+namespace BaAGee\NkNkn\Base\TraitFunc;
 
 /**
  * Trait TimerTrait
- * @package BaAGee\NkNkn\Base
+ * @package BaAGee\NkNkn\Base\TraitFunc
  */
 trait TimerTrait
 {

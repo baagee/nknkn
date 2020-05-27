@@ -3,6 +3,7 @@
 namespace BaAGee\NkNkn\Base;
 
 use BaAGee\Log\Log;
+use \BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 
 /**
  * Class EventAbstract

@@ -8,6 +8,8 @@
 
 namespace BaAGee\NkNkn\Base;
 
+use \BaAGee\NkNkn\Base\TraitFunc\ParamsValidatorTrait;
+
 /**
  * Class ControllerAbstract
  * @package BaAGee\NkNkn\Base

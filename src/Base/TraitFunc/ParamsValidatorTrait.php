@@ -6,13 +6,17 @@
  * Time: 21:21
  */
 
-namespace BaAGee\NkNkn\Base;
+namespace BaAGee\NkNkn\Base\TraitFunc;
 
 use BaAGee\NkNkn\Constant\CoreNoticeCode;
 use BaAGee\NkNkn\UserNotice;
 use BaAGee\ParamsValidator\Base\ParamInvalid;
 use BaAGee\ParamsValidator\Validator;
 
+/**
+ * Trait ParamsValidatorTrait
+ * @package BaAGee\NkNkn\Base\TraitFunc
+ */
 trait ParamsValidatorTrait
 {
     /**
@@ -22,7 +26,7 @@ trait ParamsValidatorTrait
      * @return array
      * @throws \Exception
      */
-    public function batchCheckParams(array $params, array $rules)
+    protected static function batchCheckParams(array $params, array $rules)
     {
         try {
             return Validator::getInstance()->batchAddRules($params, $rules)->validate();

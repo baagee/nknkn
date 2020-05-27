@@ -18,7 +18,7 @@ use BaAGee\Log\LogLevel;
 use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
 use BaAGee\NkNkn\Base\EventAbstract;
-use BaAGee\NkNkn\Base\TimerTrait;
+use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Wtf\Handler\WtfHandler;
 use BaAGee\Wtf\WtfError;

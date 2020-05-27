@@ -10,6 +10,7 @@ namespace BaAGee\NkNkn\Base;
 
 use BaAGee\Log\Log;
 use BaAGee\Onion\Base\LayerAbstract;
+use \BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 
 /**
  * Class MiddlewareAbstract

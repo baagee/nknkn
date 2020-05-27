@@ -64,7 +64,8 @@ class LogFormatter extends BaseLogFormatter
         // 处理多层代理的情况
         if (strpos($ip, ',') !== false) {
             // 输出第一个IP
-            $ip = reset(explode(',', $ip));
+            $tmp = explode(',', $ip);
+            $ip = reset($tmp);
         }
         return $ip;
     }

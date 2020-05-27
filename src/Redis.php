@@ -10,7 +10,7 @@ namespace BaAGee\NkNkn;
 
 use BaAGee\Config\Config;
 use BaAGee\Log\Log;
-use BaAGee\NkNkn\Base\TimerTrait;
+use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 
 /**
  * Class Redis

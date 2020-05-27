@@ -13,7 +13,7 @@ use BaAGee\CurlRequest\MultipleRequest;
 use BaAGee\CurlRequest\SingleRequest;
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Constant\CoreNoticeCode;
-
+use \BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 /**
  * Class HttpServiceAbstract
  * @package BaAGee\NkNkn\Base

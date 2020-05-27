@@ -12,7 +12,7 @@ use BaAGee\Config\Config;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Base\ActionAbstract;
-use BaAGee\NkNkn\Base\TimerTrait;
+use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
 use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Onion\Onion;
 use BaAGee\Router\Base\RouterAbstract;
