@@ -113,7 +113,7 @@ final class IdGenerator
     final protected static function getRedisSeq($step)
     {
         try {
-            $redis = Redis::getConnection();
+            $redis = RedisClient::getConnection();
             $key = self::KEY_PREFIX . Config::get('app/app_name', 'default');
             $number = $redis->incrby($key, $step);
         } catch (\Exception $e) {

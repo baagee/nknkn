@@ -16,9 +16,10 @@ use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
  * Class Redis
  * @package BaAGee\NkNkn
  */
-class Redis
+class RedisClient
 {
     use TimerTrait;
+
     /**
      * @var null
      */
