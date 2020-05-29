@@ -302,7 +302,7 @@ class App extends TaskBase
         Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
 
         list($response, $time) = self::executeTime(Router::class . '::dispatch',
-            0, $_SERVER['PATH_INFO'], $_SERVER['REQUEST_METHOD']);
+            0, $_SERVER['PATH_INFO'] ?? '/', $_SERVER['REQUEST_METHOD'] ?? 'GET');
         echo $response;
         Log::info(sprintf('Router dispatch and action run time:%sms', $time));
 
