@@ -1,48 +1,49 @@
 {
-  "name": "baagee/nknkn",
-  "description": "PHP NkNkn framework",
-  "type": "library",
-  "license": "MIT",
-  "keywords": [
-    "PHP",
-    "NkNkn",
-    "framework"
-  ],
-  "authors": [
-    {
-      "name": "BaAGee",
-      "email": "2274313786@qq.com"
+    "name": "baagee/nknkn",
+    "description": "PHP NkNkn framework",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "PHP",
+        "NkNkn",
+        "framework"
+    ],
+    "authors": [
+        {
+            "name": "BaAGee",
+            "email": "2274313786@qq.com"
+        }
+    ],
+    "bin": [
+        "bin/creater"
+    ],
+    "require": {
+        "php": ">=7.1",
+        "baagee/php-onion": "0.*.*",
+        "baagee/php-params-validator": "0.*.*",
+        "baagee/php-mysql": "0.*.*",
+        "baagee/php-router": "0.*.*",
+        "baagee/php-config": "0.*.*",
+        "baagee/php-log": "0.*.*",
+        "baagee/wtf-error": "0.*.*",
+        "baagee/php-template": "0.*.*",
+        "baagee/php-session": "0.*.*",
+        "baagee/php-cookie": "0.*.*",
+        "baagee/php-event": "0.*.*",
+        "baagee/php-curl-request": "0.*.*",
+        "baagee/async-task": "0.*.*",
+        "baagee/redis-tools": "0.*.*",
+        "psr/container": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BaAGee\\NkNkn\\": "src/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
     }
-  ],
-  "bin": [
-    "bin/creater"
-  ],
-  "require": {
-    "php": ">=7.1",
-    "baagee/php-onion": "0.*.*",
-    "baagee/php-params-validator": "0.*.*",
-    "baagee/php-mysql": "0.*.*",
-    "baagee/php-router": "0.*.*",
-    "baagee/php-config": "0.*.*",
-    "baagee/php-log": "0.*.*",
-    "baagee/wtf-error": "0.*.*",
-    "baagee/php-template": "0.*.*",
-    "baagee/php-session": "0.*.*",
-    "baagee/php-cookie": "0.*.*",
-    "baagee/php-event": "0.*.*",
-    "baagee/php-curl-request": "0.*.*",
-    "baagee/async-task": "0.*.*",
-    "baagee/redis-tools": "0.*.*"
-  },
-  "autoload": {
-    "psr-4": {
-      "BaAGee\\NkNkn\\": "src/"
-    }
-  },
-  "repositories": {
-    "packagist": {
-      "type": "composer",
-      "url": "https://mirrors.aliyun.com/composer/"
-    }
-  }
 }

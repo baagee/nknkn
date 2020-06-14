@@ -20,8 +20,9 @@ final class AppEnv
     private static $env = [];
 
     /**
-     * @param $key
-     * @param $value
+     * 设置值 只针对当前请求有效
+     * @param string $key   名字
+     * @param mixed  $value 值
      */
     public static function set($key, $value)
     {
@@ -29,8 +30,9 @@ final class AppEnv
     }
 
     /**
-     * @param      $key
-     * @param null $default
+     * 获取值
+     * @param string $key 名字
+     * @param null   $default
      * @return mixed|null
      */
     public static function get($key, $default = null)

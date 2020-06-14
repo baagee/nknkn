@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc:
+ * Desc: Cookie初始化
  * User: baagee
  * Date: 2019/9/23
  * Time: 10:29
