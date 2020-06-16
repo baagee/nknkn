@@ -52,7 +52,7 @@ $indexFile = <<<CODE
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\$app = new \BaAGee\NkNkn\App();
+\$app = new \BaAGee\NkNkn\HttpApp();
 \$app->run();
 
 CODE;
