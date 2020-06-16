@@ -27,7 +27,7 @@ use BaAGee\Wtf\WtfError;
  * Class App
  * @package BaAGee\NkNkn
  */
-class App extends TaskBase
+abstract class App extends TaskBase
 {
     use TimerTrait;
     /**
@@ -232,23 +232,6 @@ class App extends TaskBase
     }
 
     /**
-     * @param array $params
-     * @throws \Exception
-     */
-    final public function run($params = [])
-    {
-        if (PHP_SAPI !== 'cli') {
-            $this->cgi();
-        } else {
-            // 命令行下
-            if (empty($params)) {
-                $params = $argv ?? [];
-            }
-            $this->cli($params ?? []);
-        }
-    }
-
-    /**
      * 删除缓存
      * @param $path
      */
@@ -268,55 +251,5 @@ class App extends TaskBase
                 }
             }
         }
-    }
-
-    /**
-     * @throws \Exception
-     */
-    final private function cgi()
-    {
-        // 路由初始化前
-        Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
-
-        list(, $time) = self::executeTime(function () {
-            if (Config::get('app/is_debug', true) ||
-                Router::setCachePath(AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache') === false) {
-                Router::init(include AppEnv::get('APP_PATH') . DIRECTORY_SEPARATOR . 'routes.php');
-            }
-            Router::setNotFound(function () {
-                $file = Config::get('app/404file', '');
-                if (is_file(AppEnv::get('ROOT_PATH') . DIRECTORY_SEPARATOR . 'public' . $file)) {
-                    header('Location: ' . $file);
-                } else {
-                    http_response_code(404);
-                }
-            });
-        });
-
-        Log::info(sprintf('Router init time:%sms', $time));
-
-        // 路由初始化后
-        Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
-
-        // 路由匹配开始前
-        Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
-
-        list($response, $time) = self::executeTime(Router::class . '::dispatch',
-            0, $_SERVER['PATH_INFO'] ?? '/', $_SERVER['REQUEST_METHOD'] ?? 'GET');
-        echo $response;
-        Log::info(sprintf('Router dispatch and action run time:%sms', $time));
-
-        if (function_exists('fastcgi_finish_request')) {
-            fastcgi_finish_request();
-        }
-    }
-
-    /**
-     * cli命令行程序入口
-     * @param array $params
-     */
-    protected function cli($params)
-    {
-
     }
 }
