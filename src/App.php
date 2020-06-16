@@ -12,6 +12,7 @@ use BaAGee\AsyncTask\TaskBase;
 use BaAGee\AsyncTask\TaskScheduler;
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Config\Parser\PhpParser;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\Log\LogLevel;
@@ -170,7 +171,7 @@ abstract class App extends TaskBase
     final private static function configInit()
     {
         // 配置初始化
-        Config::init(AppEnv::get('CONFIG_PATH'), ParsePHPFile::class);
+        Config::init(AppEnv::get('CONFIG_PATH'), PhpParser::class);
         $cachePath = AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'cache';
         if (!Config::get('app/is_debug', true)) {
             // 不是开发调试模式 更快的读取配置信息
