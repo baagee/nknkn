@@ -471,16 +471,16 @@
         },
         {
             "name": "baagee/php-session",
-            "version": "v0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-session.git",
-                "reference": "d8999609a858bc6e08afdec498d328fc64ee8f77"
+                "reference": "cd8b1f320e0c34e999ef99b4c97c09fcec939f28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-session/zipball/d8999609a858bc6e08afdec498d328fc64ee8f77",
-                "reference": "d8999609a858bc6e08afdec498d328fc64ee8f77",
+                "url": "https://api.github.com/repos/baagee/php-session/zipball/cd8b1f320e0c34e999ef99b4c97c09fcec939f28",
+                "reference": "cd8b1f320e0c34e999ef99b4c97c09fcec939f28",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -513,7 +513,7 @@
                 "php",
                 "session"
             ],
-            "time": "2019-04-14T08:28:46+00:00"
+            "time": "2020-06-17T05:43:08+00:00"
         },
         {
             "name": "baagee/php-template",
