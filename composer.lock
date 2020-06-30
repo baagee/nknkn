@@ -283,16 +283,16 @@
         },
         {
             "name": "baagee/php-mysql",
-            "version": "v0.2.5",
+            "version": "v0.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-mysql.git",
-                "reference": "9f87d8546b99c2e4fb50aab73cba98219998cf3c"
+                "reference": "3aef565d0f6ff35c68c46702be9a4010be0b56e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/9f87d8546b99c2e4fb50aab73cba98219998cf3c",
-                "reference": "9f87d8546b99c2e4fb50aab73cba98219998cf3c",
+                "url": "https://api.github.com/repos/baagee/php-mysql/zipball/3aef565d0f6ff35c68c46702be9a4010be0b56e9",
+                "reference": "3aef565d0f6ff35c68c46702be9a4010be0b56e9",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -326,7 +326,7 @@
                 "mysql",
                 "php"
             ],
-            "time": "2020-06-26T11:56:49+00:00"
+            "time": "2020-06-30T06:14:08+00:00"
         },
         {
             "name": "baagee/php-onion",
