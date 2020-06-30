@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'enable'     => true,//是否使用Cookie
+    'enable'     => false,//是否使用Cookie
     'prefix'     => '', // cookie 名称前缀
     'expire'     => 3600 * 12, // cookie 保存时间
     'path'       => '/', // cookie 保存路径
