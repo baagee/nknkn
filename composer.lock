@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1c82f295e6a78dd59c84b10f92d5937",
+    "content-hash": "300b7fd70471eadfac6b3d01c1e8b941",
     "packages": [
         {
             "name": "baagee/async-task",
@@ -701,6 +701,51 @@
                 "php"
             ],
             "time": "2020-04-25T09:29:24+00:00"
+        },
+        {
+            "name": "baagee/xlsx-writer",
+            "version": "0.40",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/PHP_XLSXWriter.git",
+                "reference": "b0295fece82885f92c07a2ceb6ba49fe649a5366"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/PHP_XLSXWriter/zipball/b0295fece82885f92c07a2ceb6ba49fe649a5366",
+                "reference": "b0295fece82885f92c07a2ceb6ba49fe649a5366",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "ext-zip": "*",
+                "php": ">=5.2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\Excel\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP Library to write XLSX files",
+            "homepage": "https://github.com/baagee/PHP_XLSXWriter",
+            "keywords": [
+                "excel",
+                "library",
+                "php",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2020-06-13T04:57:03+00:00"
         },
         {
             "name": "psr/container",

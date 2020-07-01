@@ -34,6 +34,7 @@
         "baagee/async-task": "0.*.*",
         "baagee/redis-tools": "0.*.*",
         "baagee/php-image": "0.*.*",
+        "baagee/xlsx-writer": "0.*",
         "psr/container": "^1.0"
     },
     "autoload": {
