@@ -17,9 +17,9 @@
 "baagee/php-curl-request" //Curl请求类
 "baagee/async-task" //异步执行任务脚本类
 "baagee/redis-tools" //redis分布式抢占锁和限速器令牌桶
-"baagee/php-image": "0.*.*" //图片操作类 支持Imagick和Gd
-"baagee/xlsx-writer": "0.*" //高性能数据写入excel表格
-"psr/container": "^1.0" // 容器
+"baagee/php-image" //图片操作类 支持Imagick和Gd
+"baagee/xlsx-writer" //高性能数据写入excel表格
+"psr/container" // 容器
 ```
 
 ## 快速开始
