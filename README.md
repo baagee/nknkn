@@ -16,36 +16,10 @@
 "baagee/php-event" //事件定义触发类
 "baagee/php-curl-request" //Curl请求类
 "baagee/async-task" //异步执行任务脚本类
-"baagee/redis-tools" //redis分布式抢占锁和限速器
-```
-
-## 框架目录结构
-```
-$ tree src
-src
-├── App.php // App类
-├── AppEnv.php // App目录环境等信息配置与获取
-├── Base
-│   ├── ActionAbstract.php // 当控制器比较大时，可以把每个action独立成一个类的父类
-│   ├── ControllerAbstract.php // 控制器父类
-│   ├── EventAbstract.php // 事件父类
-│   ├── HttpServiceAbstract.php // 封装的调用第三方Http服务时的Curl类
-│   ├── MiddlewareAbstract.php // 中间件父类
-│   ├── ModelAbstract.php // Model父类
-│   ├── ParamsValidatorTrait.php // 参数批量验证
-│   └── TimerTrait.php // 在计时器中运行，会返回运行时间
-├── Constant
-│   ├── CoreEventList.php // 系统事件名
-│   └── CoreNoticeCode.php // 系统错误码
-├── IdGenerator.php // 基于Redis的Id生成器
-├── LogFormatter.php //默认的 Log格式化 json字符串
-├── Middleware
-│   ├── CookieInit.php // cookie初始化中间件
-│   └── SessionInit.php // Session初始化中间件
-├── Redis.php // 包装的Redis客户端
-├── Router.php // 路由类
-├── UploadFile.php // 上传文件类
-└── UserNotice.php // 需要提示用户的Exception类
+"baagee/redis-tools" //redis分布式抢占锁和限速器令牌桶
+"baagee/php-image": "0.*.*" //图片操作类 支持Imagick和Gd
+"baagee/xlsx-writer": "0.*" //高性能数据写入excel表格
+"psr/container": "^1.0" // 容器
 ```
 
 ## 快速开始
