@@ -33,6 +33,7 @@
         "baagee/php-curl-request": "0.*.*",
         "baagee/async-task": "0.*.*",
         "baagee/redis-tools": "0.*.*",
+        "baagee/php-image": "0.*.*",
         "psr/container": "^1.0"
     },
     "autoload": {

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "078926bb6f3965e4b2d21474dcd30962",
+    "content-hash": "e1c82f295e6a78dd59c84b10f92d5937",
     "packages": [
         {
             "name": "baagee/async-task",
@@ -234,6 +234,56 @@
                 "php"
             ],
             "time": "2019-03-25T07:14:34+00:00"
+        },
+        {
+            "name": "baagee/php-image",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/php-image.git",
+                "reference": "15a6d68f7fbf7e2dbef2fb893aa6eba0f1b33a63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/php-image/zipball/15a6d68f7fbf7e2dbef2fb893aa6eba0f1b33a63",
+                "reference": "15a6d68f7fbf7e2dbef2fb893aa6eba0f1b33a63",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "suggest": {
+                "ext-gd": "ext-gd",
+                "ext-imagick": "ext-imagick"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\Image\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BaAGee",
+                    "email": "2274313786@qq.com"
+                }
+            ],
+            "description": "PHP Image library",
+            "keywords": [
+                "image",
+                "php"
+            ],
+            "time": "2019-11-08T16:34:45+00:00"
         },
         {
             "name": "baagee/php-log",
@@ -564,16 +614,16 @@
         },
         {
             "name": "baagee/redis-tools",
-            "version": "0.0.1",
+            "version": "v0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/redis-tools.git",
-                "reference": "3eaf7ab084f66bbace6087bc940958e08175418c"
+                "reference": "ab05f86dc7fb055c21c1fcca8751478c01073203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/redis-tools/zipball/3eaf7ab084f66bbace6087bc940958e08175418c",
-                "reference": "3eaf7ab084f66bbace6087bc940958e08175418c",
+                "url": "https://api.github.com/repos/baagee/redis-tools/zipball/ab05f86dc7fb055c21c1fcca8751478c01073203",
+                "reference": "ab05f86dc7fb055c21c1fcca8751478c01073203",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -607,7 +657,7 @@
                 "limiter",
                 "redis"
             ],
-            "time": "2020-04-19T14:43:42+00:00"
+            "time": "2020-07-01T01:55:34+00:00"
         },
         {
             "name": "baagee/wtf-error",
