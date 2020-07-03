@@ -16,9 +16,6 @@
 "baagee/php-event" //事件定义触发类
 "baagee/php-curl-request" //Curl请求类
 "baagee/async-task" //异步执行任务脚本类
-"baagee/redis-tools" //redis分布式抢占锁和限速器令牌桶
-"baagee/php-image" //图片操作类 支持Imagick和Gd
-"baagee/xlsx-writer" //高性能数据写入excel表格
 "psr/container" // 容器
 ```
 
