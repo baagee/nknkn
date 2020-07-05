@@ -190,7 +190,7 @@ abstract class App extends TaskBase
         // 注册错误提示
         WtfError::register(new WtfHandler([
             'is_debug'             => Config::get('app/is_debug', true),#是否为调试模式
-            #php error log路径不为空就调用写Log方法
+            # php error log路径不为空就调用写Log方法
             'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
             'product_error_hidden' => Config::get('app/product_error_hidden', []),# 非调试模式下隐藏哪种PHP错误类型
             'dev_error_hidden'     => Config::get('app/debug_error_hidden', []),# 调试开发模式下隐藏哪种PHP错误类型
@@ -213,19 +213,19 @@ abstract class App extends TaskBase
             // Sql记录到Log
             SqlRecorder::setSaveHandler(function ($params) {
                 $totalTime   = number_format(
-                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5
+                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5, '.', ''
                 );
                 $connectTime = number_format(
-                    ($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5
+                    ($params['sqlInfo']['connectedTime'] - $params['sqlInfo']['startTime']) * 1000, 5, '.', ''
                 );
-                $sqlTime     = number_format(
-                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5
+                $sqlTime = number_format(
+                    ($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5, '.', ''
                 );
                 $logStr      = json_encode(array_merge([
                     'totalTime'   => $totalTime . 'ms',
                     'connectTime' => $connectTime . 'ms',
                     'sqlTime'     => $sqlTime . 'ms'
-                ], $params['sqlInfo']), JSON_UNESCAPED_UNICODE);
+                ], (array)$params['sqlInfo']), JSON_UNESCAPED_UNICODE);
                 Log::debug($logStr);
             });
         }

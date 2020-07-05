@@ -37,11 +37,6 @@ class Container implements ContainerInterface, ArrayAccess, Countable
     protected $bind = [];
 
     /**
-     * 容器回调
-     * @var array
-     */
-
-    /**
      * 获取当前容器的实例（单例）
      * @access public
      * @return static
