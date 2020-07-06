@@ -517,16 +517,16 @@
         },
         {
             "name": "baagee/php-template",
-            "version": "v0.0.3",
+            "version": "v0.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-template.git",
-                "reference": "9635838657e6e4479ffa00f43196e2030bacb2cb"
+                "reference": "892883c1f90e6c6452108e8296379dbd84ba0169"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-template/zipball/9635838657e6e4479ffa00f43196e2030bacb2cb",
-                "reference": "9635838657e6e4479ffa00f43196e2030bacb2cb",
+                "url": "https://api.github.com/repos/baagee/php-template/zipball/892883c1f90e6c6452108e8296379dbd84ba0169",
+                "reference": "892883c1f90e6c6452108e8296379dbd84ba0169",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -560,7 +560,7 @@
                 "template",
                 "view"
             ],
-            "time": "2020-04-25T09:32:03+00:00"
+            "time": "2020-07-05T16:01:01+00:00"
         },
         {
             "name": "baagee/wtf-error",
