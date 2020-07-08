@@ -3,20 +3,20 @@
 将以下包组合成小框架，轻量+自定义组合各个模块，定制属于你的小框架
 
 ```
-"baagee/php-onion" // 洋葱模型，提供中间件支持
-"baagee/php-params-validator" // 参数验证类
-"baagee/php-mysql" // 操作mysql类
-"baagee/php-router" // 路由类
-"baagee/php-config" // config配置获取类
-"baagee/php-log" // Log日志类
-"baagee/wtf-error" // 友好的开发错误展示类
-"baagee/php-template" // html模板引擎
-"baagee/php-session" // Session管理类
-"baagee/php-cookie" //Cookie管理类
-"baagee/php-event" //事件定义触发类
-"baagee/php-curl-request" //Curl请求类
-"baagee/async-task" //异步执行任务脚本类
-"psr/container" // 容器
+baagee/async-task: php process task library https://github.com/baagee/async-task.git
+baagee/php-config: PHP Config library https://github.com/baagee/php-config.git
+baagee/php-cookie: PHP Cookie library https://github.com/baagee/php-cookie.git
+baagee/php-curl-request: PHP Curl Request library https://github.com/baagee/php-curl-request.git
+baagee/php-event: PHP event library https://github.com/baagee/php-event.git
+baagee/php-log: PHP Log library https://github.com/baagee/php-log.git
+baagee/php-mysql: PHP mysql library https://github.com/baagee/php-mysql.git
+baagee/php-onion: PHP onion layer https://github.com/baagee/php-onion.git
+baagee/php-params-validator: PHP Params Validator Library https://github.com/baagee/php-params-validator.git
+baagee/php-router: PHP Router library https://github.com/baagee/php-router.git
+baagee/php-session: PHP Session library https://github.com/baagee/php-session.git
+baagee/php-template: PHP Template library https://github.com/baagee/php-template.git
+baagee/wtf-error: What the fuck! PHP error handler https://github.com/baagee/wtf-error.git
+psr/container: Common Container Interface (PHP FIG PSR-11) https://github.com/php-fig/container.git
 ```
 
 ## 快速开始
