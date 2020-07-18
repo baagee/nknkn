@@ -564,16 +564,16 @@
         },
         {
             "name": "baagee/wtf-error",
-            "version": "v0.0.7",
+            "version": "v0.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/wtf-error.git",
-                "reference": "6044fc1520091fcd274c05140e014bb2b4d8cade"
+                "reference": "1c9a24593494e8d7d7f3649627ec5c69d8b8e1ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/wtf-error/zipball/6044fc1520091fcd274c05140e014bb2b4d8cade",
-                "reference": "6044fc1520091fcd274c05140e014bb2b4d8cade",
+                "url": "https://api.github.com/repos/baagee/wtf-error/zipball/1c9a24593494e8d7d7f3649627ec5c69d8b8e1ee",
+                "reference": "1c9a24593494e8d7d7f3649627ec5c69d8b8e1ee",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -603,7 +603,7 @@
                 "error",
                 "php"
             ],
-            "time": "2020-07-09T14:14:32+00:00"
+            "time": "2020-07-18T05:02:10+00:00"
         },
         {
             "name": "psr/container",
