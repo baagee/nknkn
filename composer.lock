@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e27aa74ccacc8d3570a1fe5d28aad030",
+    "content-hash": "0c2dae35644e88c8b33125846310899b",
     "packages": [
         {
             "name": "baagee/async-task",
@@ -188,6 +188,55 @@
                 "php"
             ],
             "time": "2020-07-01T12:08:20+00:00"
+        },
+        {
+            "name": "baagee/php-debug-trace",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baagee/php-debugtrace.git",
+                "reference": "0709608ddf0405f427bb57e3d86d2c5bcd840ade"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baagee/php-debugtrace/zipball/0709608ddf0405f427bb57e3d86d2c5bcd840ade",
+                "reference": "0709608ddf0405f427bb57e3d86d2c5bcd840ade",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BaAGee\\DebugTrace\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "BaAGee",
+                    "email": "2274313786@qq.com"
+                }
+            ],
+            "description": "PHP Debug Trace",
+            "keywords": [
+                "debug trace",
+                "php"
+            ],
+            "time": "2020-07-22T02:10:43+00:00"
         },
         {
             "name": "baagee/php-event",

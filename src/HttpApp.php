@@ -9,8 +9,11 @@
 namespace BaAGee\NkNkn;
 
 use BaAGee\Config\Config;
+use BaAGee\DebugTrace\DebugTrace;
+use BaAGee\DebugTrace\TraceCollector;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
+use BaAGee\MySQL\SqlRecorder;
 use BaAGee\NkNkn\Constant\CoreEventList;
 
 /**
@@ -84,10 +87,45 @@ class HttpApp extends App
      */
     protected function send($response)
     {
+        if (PHP_SAPI != 'cli' && Config::get('app/is_debug', true)) {
+            $response = $this->appendDebugTrace($response);//开发模式输出调试信息
+        }
         echo $response;
 
         if (function_exists('fastcgi_finish_request')) {
             fastcgi_finish_request();
         }
+    }
+
+    /**
+     * 在页面后追加调试信息输出
+     * @param $response
+     * @return string
+     */
+    protected function appendDebugTrace($response)
+    {
+        $headers = headers_list();
+        foreach ($headers as $header) {
+            $header = str_replace(array(" ", "　", "\t", "\n", "\r"), array("", "", "", "", ""), $header);
+            if (stripos($header, 'Content-Type:text/html') !== false) {//只有输出html时才展示
+                $allSqls = SqlRecorder::getAllFullSql();
+                foreach ($allSqls as $sql) {
+                    $info = sprintf('%s %.2fms', $sql['fullSql'], (($sql['endTime'] - $sql['startTime']) * 1000));
+                    TraceCollector::addLog(TraceCollector::TRACE_TYPE_SQL, $info);
+                }
+                $output = DebugTrace::output();
+                if (is_string($output) && !empty($output)) {
+                    // 追加trace调试信息
+                    $pos = strripos($response, '</body>');
+                    if (false !== $pos) {
+                        $response = substr($response, 0, $pos) . $output . substr($response, $pos);
+                    } else {
+                        $response .= $output;
+                    }
+                }
+                break;
+            }
+        }
+        return $response;
     }
 }

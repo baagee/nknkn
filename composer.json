@@ -32,7 +32,8 @@
         "baagee/php-event": "0.*.*",
         "baagee/php-curl-request": "0.*.*",
         "baagee/async-task": "0.*.*",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "baagee/php-debug-trace": "0.*.*"
     },
     "autoload": {
         "psr-4": {

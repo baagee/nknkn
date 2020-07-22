@@ -12,6 +12,9 @@ use BaAGee\AsyncTask\TaskBase;
 use BaAGee\AsyncTask\TaskScheduler;
 use BaAGee\Config\Config;
 use BaAGee\Config\Parser\PhpParser;
+use BaAGee\DebugTrace\DebugTrace;
+use BaAGee\DebugTrace\OutputHtml;
+use BaAGee\DebugTrace\TraceCollector;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\Log\LogLevel;
@@ -30,6 +33,7 @@ use BaAGee\Wtf\WtfError;
 abstract class App extends TaskBase
 {
     use TimerTrait;
+
     /**
      * @var bool 是否初始化
      */
@@ -47,6 +51,8 @@ abstract class App extends TaskBase
                 self::setTraceId();
                 // 配置初始化
                 self::configInit();
+                //初始化调试信息页面输出
+                self::initDebugTrace();
                 //设置时区
                 self::setTimezone();
                 // 注册错误提示
@@ -69,6 +75,18 @@ abstract class App extends TaskBase
     }
 
     /**
+     * 初始化页面调试信息
+     */
+    final private static function initDebugTrace()
+    {
+        if (PHP_SAPI != 'cli' && Config::get('app/is_debug', true)) {
+            $class = Config::get('app/debug_trace_output', OutputHtml::class);
+            DebugTrace::init($class);
+            TraceCollector::setEnv(AppEnv::getAll());
+        }
+    }
+
+    /**
      * App constructor.
      * @throws \Exception
      */
@@ -82,7 +100,7 @@ abstract class App extends TaskBase
      */
     final private static function registerEvents()
     {
-        $func   = function ($name, $event) {
+        $func = function ($name, $event) {
             if (class_exists($event)) {
                 if (is_subclass_of($event, EventAbstract::class)) {
                     $obj = new $event();
@@ -156,9 +174,9 @@ abstract class App extends TaskBase
     final private static function asyncTaskInit()
     {
         $taskConfig = Config::get('app/async_task', []);
-        $maxTask    = intval($taskConfig['max_task'] ?? 10);
-        $maxTask    = $maxTask <= 0 ? 10 : $maxTask;
-        $lockFile   = $taskConfig['lock_file'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_lock';
+        $maxTask = intval($taskConfig['max_task'] ?? 10);
+        $maxTask = $maxTask <= 0 ? 10 : $maxTask;
+        $lockFile = $taskConfig['lock_file'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_lock';
         $taskOutput = $taskConfig['output_dir'] ?? AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'task_output';
         TaskScheduler::init($lockFile, $maxTask, $taskOutput);
     }
@@ -189,11 +207,11 @@ abstract class App extends TaskBase
     {
         // 注册错误提示
         WtfError::register(new WtfHandler([
-            'is_debug'             => Config::get('app/is_debug', true),#是否为调试模式
+            'is_debug' => Config::get('app/is_debug', true),#是否为调试模式
             # php error log路径不为空就调用写Log方法
-            'php_error_log_dir'    => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
+            'php_error_log_dir' => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
             'product_error_hidden' => Config::get('app/product_error_hidden', []),# 非调试模式下隐藏哪种PHP错误类型
-            'dev_error_hidden'     => Config::get('app/debug_error_hidden', []),# 调试开发模式下隐藏哪种PHP错误类型
+            'dev_error_hidden' => Config::get('app/debug_error_hidden', []),# 调试开发模式下隐藏哪种PHP错误类型
         ]));
     }
 
@@ -212,7 +230,7 @@ abstract class App extends TaskBase
             DBConfig::init($dbConfig);
             // Sql记录到Log
             SqlRecorder::setSaveHandler(function ($params) {
-                $totalTime   = number_format(
+                $totalTime = number_format(
                     ($params['sqlInfo']['endTime'] - $params['sqlInfo']['startTime']) * 1000, 5, '.', ''
                 );
                 $connectTime = number_format(
@@ -221,10 +239,10 @@ abstract class App extends TaskBase
                 $sqlTime = number_format(
                     ($params['sqlInfo']['endTime'] - $params['sqlInfo']['connectedTime']) * 1000, 5, '.', ''
                 );
-                $logStr      = json_encode(array_merge([
-                    'totalTime'   => $totalTime . 'ms',
+                $logStr = json_encode(array_merge([
+                    'totalTime' => $totalTime . 'ms',
                     'connectTime' => $connectTime . 'ms',
-                    'sqlTime'     => $sqlTime . 'ms'
+                    'sqlTime' => $sqlTime . 'ms'
                 ], (array)$params['sqlInfo']), JSON_UNESCAPED_UNICODE);
                 Log::debug($logStr);
             });

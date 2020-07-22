@@ -30,6 +30,15 @@ final class AppEnv
     }
 
     /**
+     * 获取所有的Env
+     * @return array
+     */
+    public static function getAll()
+    {
+        return self::$env;
+    }
+
+    /**
      * 获取值
      * @param string $key 名字
      * @param null   $default
