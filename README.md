@@ -7,6 +7,7 @@ baagee/async-task: php process task library https://github.com/baagee/async-task
 baagee/php-config: PHP Config library https://github.com/baagee/php-config.git
 baagee/php-cookie: PHP Cookie library https://github.com/baagee/php-cookie.git
 baagee/php-curl-request: PHP Curl Request library https://github.com/baagee/php-curl-request.git
+baagee/php-debug-trace: PHP Debug Trace https://github.com/baagee/php-debugtrace.git
 baagee/php-event: PHP event library https://github.com/baagee/php-event.git
 baagee/php-log: PHP Log library https://github.com/baagee/php-log.git
 baagee/php-mysql: PHP mysql library https://github.com/baagee/php-mysql.git
