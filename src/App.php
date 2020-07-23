@@ -83,6 +83,11 @@ abstract class App extends TaskBase
             $class = Config::get('app/debug_trace_output', OutputHtml::class);
             DebugTrace::init($class);
             TraceCollector::setEnv(AppEnv::getAll());
+            Log::listenOnWrite(function ($level, $logArr) {
+                $arr = explode('.', number_format($logArr['time'], 4, '.', ''));
+                $time = date('H:i:s', $arr[0]) . '.' . $arr[1] ?? '0000';
+                TraceCollector::addLog(TraceCollector::TRACE_TYPE_LOG, sprintf('[%s][%s][%s:%d] %s', $level, $time, $logArr['file'], $logArr['line'], $logArr['log']));
+            });
         }
     }
 
