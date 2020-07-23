@@ -191,16 +191,16 @@
         },
         {
             "name": "baagee/php-debug-trace",
-            "version": "v0.0.5",
+            "version": "v0.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/baagee/php-debugtrace.git",
-                "reference": "bd3916df7bec21e4ab82928e86413c8af8ae2846"
+                "reference": "f0a1a2f5aad9f80280a3cb255b3f8d6cae1993d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/baagee/php-debugtrace/zipball/bd3916df7bec21e4ab82928e86413c8af8ae2846",
-                "reference": "bd3916df7bec21e4ab82928e86413c8af8ae2846",
+                "url": "https://api.github.com/repos/baagee/php-debugtrace/zipball/f0a1a2f5aad9f80280a3cb255b3f8d6cae1993d1",
+                "reference": "f0a1a2f5aad9f80280a3cb255b3f8d6cae1993d1",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -236,7 +236,7 @@
                 "debug trace",
                 "php"
             ],
-            "time": "2020-07-23T03:34:37+00:00"
+            "time": "2020-07-23T14:36:09+00:00"
         },
         {
             "name": "baagee/php-event",
