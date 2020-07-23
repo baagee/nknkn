@@ -110,7 +110,9 @@ class HttpApp extends App
             if (stripos($header, 'Content-Type:text/html') !== false) {//只有输出html时才展示
                 $allSqls = SqlRecorder::getAllFullSql();
                 foreach ($allSqls as $sql) {
-                    $info = sprintf('%s %.2fms', $sql['fullSql'], (($sql['endTime'] - $sql['startTime']) * 1000));
+                    $t = explode('.', number_format($sql['startTime'], 4, '.', ''));
+                    $time = date('H:i:s', $t[0]) . '.' . ($t[1] ?? '0000');
+                    $info = sprintf('[%s] %s %.2fms', $time, $sql['fullSql'], (($sql['endTime'] - $sql['startTime']) * 1000));
                     TraceCollector::addLog(TraceCollector::TRACE_TYPE_SQL, $info);
                 }
                 $output = DebugTrace::output();
