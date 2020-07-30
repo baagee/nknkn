@@ -152,7 +152,6 @@ final class Router extends RouterAbstract
             }
         }
         $params = array_merge($requestParams, $params);
-        Log::info('Request params: ' . json_encode($params, JSON_UNESCAPED_UNICODE));
         return $params;
     }
 
