@@ -165,8 +165,6 @@ final class Router extends RouterAbstract
     protected static function eatingOnion($data, $layer, $callback)
     {
         return (new Onion())->send($data)->through($layer)->then(function ($request) use ($callback) {
-            Log::info('Action input：' . json_encode($request, JSON_UNESCAPED_UNICODE));
-
             list($res, $time) = self::executeTime(function ($callback, $request) {
                 return call_user_func($callback, $request);
             }, 0, $callback, $request);
@@ -176,7 +174,7 @@ final class Router extends RouterAbstract
             } elseif (!is_resource($res)) {
                 $retStr = (string)$res;
             }
-            Log::info(sprintf('Action output %s  execute time：%sms', $retStr, $time));
+            Log::info(sprintf('Action execute time：%sms', $time));
             return $res;
         });
     }
