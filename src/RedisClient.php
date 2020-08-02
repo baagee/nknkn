@@ -59,7 +59,7 @@ class RedisClient
                 $redisObj = new \Redis();
 
                 $res = false;
-                for ($i = 0; $i <= intval($config['retryTimes'] ?? 0); $i++) {
+                for ($i = 0; $i <= intval($config['retry_times'] ?? 0); $i++) {
                     if (isset($config['pconnect']) && $config['pconnect'] == true) {
                         $res = $redisObj->pconnect($config['host'], $config['port'], intval($config['timeout'] ?? 1));
                     } else {

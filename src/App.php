@@ -228,7 +228,7 @@ abstract class App extends TaskBase
     {
         $dbConfig = Config::get('mysql', []);
         if (!empty($dbConfig)) {
-            $dbConfig['schemasCachePath'] = implode(DIRECTORY_SEPARATOR, [
+            $dbConfig['schemas_cache_path'] = implode(DIRECTORY_SEPARATOR, [
                 AppEnv::get('RUNTIME_PATH'), 'cache', 'schemas'
             ]);
             // Db配置初始化

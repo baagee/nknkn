@@ -6,5 +6,5 @@ return [
     'password'   => '',
     'pconnect'   => false,
     'timeout'    => 500,
-    'retryTimes' => 2
+    'retry_times' => 2
 ];
