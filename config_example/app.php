@@ -16,5 +16,8 @@ return [
         'max_task'   => 50,
         // 异步任务脚本输出目录
         'output_dir' => \BaAGee\NkNkn\AppEnv::get('RUNTIME_PATH') . DIRECTORY_SEPARATOR . 'async_task_output'
-    ]
+    ],
+    // 页面调试信息输出类
+    // 'debug_trace_output' => \BaAGee\DebugTrace\OutputHtml::class,// 默认 输出到页面tab
+    // 'debug_trace_output' => \BaAGee\DebugTrace\OutputConsole::class,// 输出到浏览器控制台
 ];
