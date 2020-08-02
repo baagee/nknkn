@@ -44,7 +44,7 @@ abstract class ModelAbstract
     public function __construct()
     {
         DBConfig::switchTo(static::$configName);
-        Log::info(sprintf("%s切换数据库到%s", static::$tableName, static::$configName));
+        Log::info(sprintf("%s switch database to %s", static::$tableName, static::$configName));
         //自动切换数据库
         $this->tableObj = SimpleTable::getInstance(static::$tableName);
     }
@@ -61,7 +61,7 @@ abstract class ModelAbstract
             static::$selfMap[static::$tableName] = $self;
         } else {
             DBConfig::switchTo(static::$configName);
-            Log::info(sprintf("%s切换数据库到%s", static::$tableName, static::$configName));
+            Log::info(sprintf("%s switch database to %s", static::$tableName, static::$configName));
         }
         return static::$selfMap[static::$tableName];
     }
@@ -75,7 +75,7 @@ abstract class ModelAbstract
     final public function switchTo($configName = DBConfig::DEFAULT)
     {
         DBConfig::switchTo($configName);
-        Log::info(sprintf("%s切换数据库到%s", static::$tableName, $configName));
+        Log::info(sprintf("%s switch database to %s", static::$tableName, $configName));
         return $this;
     }
 
