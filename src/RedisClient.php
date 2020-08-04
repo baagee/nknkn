@@ -97,9 +97,9 @@ class RedisClient
     public function __call($name, $arguments)
     {
         if (method_exists(static::$redisObj, $name)) {
-            Log::info(sprintf('Call Redis method:%s args:%s', $name, json_encode($arguments, JSON_UNESCAPED_UNICODE)));
+            Log::info(sprintf('Call Redis method:%s start. args:%s', $name, json_encode($arguments, JSON_UNESCAPED_UNICODE)));
             list($res, $time) = self::executeTime([static::$redisObj, $name], 1, ...$arguments);
-            Log::info(sprintf('Call Redis method:%s time:%sms', $name, $time));
+            Log::info(sprintf('Call Redis method:%s end. time:%sms', $name, $time));
             return $res;
         } else {
             return false;
