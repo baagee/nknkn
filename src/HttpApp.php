@@ -14,7 +14,6 @@ use BaAGee\DebugTrace\TraceCollector;
 use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\MySQL\SqlRecorder;
-use BaAGee\NkNkn\Constant\CoreEventList;
 
 /**
  * Class HttpApp
@@ -28,13 +27,13 @@ class HttpApp extends App
      */
     public function run($params = [])
     {
-        Event::trigger(CoreEventList::ROUTER_BEFORE_INIT_EVENT);
+        Event::trigger(Router::ROUTER_BEFORE_INIT_EVENT);
 
         $this->routerInit();
 
-        Event::trigger(CoreEventList::ROUTER_AFTER_INIT_EVENT);
+        Event::trigger(Router::ROUTER_AFTER_INIT_EVENT);
 
-        Event::trigger(CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT);
+        Event::trigger(Router::ROUTER_BEFORE_DISPATCH_EVENT);
 
         list($response, $time) = self::executeTime(Router::class . '::dispatch', 0, $this->getRequestPath(), $this->getRequestMethod());
 

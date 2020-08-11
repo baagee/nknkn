@@ -22,7 +22,6 @@ use BaAGee\MySQL\DBConfig;
 use BaAGee\MySQL\SqlRecorder;
 use BaAGee\NkNkn\Base\EventAbstract;
 use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
-use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Wtf\Handler\WtfHandler;
 use BaAGee\Wtf\WtfError;
 
@@ -32,6 +31,8 @@ use BaAGee\Wtf\WtfError;
  */
 abstract class App extends TaskBase
 {
+    const APP_AFTER_INIT_EVENT = 'CORE_APP_AFTER_INIT_EVENT';
+
     use TimerTrait;
 
     /**
@@ -70,7 +71,7 @@ abstract class App extends TaskBase
             Log::info(sprintf('App init time:%sms', $time));
 
             // 触发app初始化事件
-            Event::trigger(CoreEventList::APP_AFTER_INIT_EVENT);
+            Event::trigger(self::APP_AFTER_INIT_EVENT);
         }
     }
 

@@ -96,15 +96,15 @@ else
 ## 支持事件触发，框架内置的事件有
 ```php
 // app初始化后
-BaAGee\NkNkn\Constant\CoreEventList::APP_AFTER_INIT_EVENT
+\BaAGee\NkNkn\App::APP_AFTER_INIT_EVENT;
 // 路由初始化前
-BaAGee\NkNkn\Constant\CoreEventList::ROUTER_BEFORE_INIT_EVENT
+\BaAGee\NkNkn\Router::ROUTER_BEFORE_INIT_EVENT;
 // 路由初始化后
-BaAGee\NkNkn\Constant\CoreEventList::ROUTER_AFTER_INIT_EVENT
+\BaAGee\NkNkn\Router::ROUTER_AFTER_INIT_EVENT;
 // 路由匹配执行前
-BaAGee\NkNkn\Constant\CoreEventList::ROUTER_BEFORE_DISPATCH_EVENT
+\BaAGee\NkNkn\Router::ROUTER_BEFORE_DISPATCH_EVENT
 // 路由匹配执行后
-BaAGee\NkNkn\Constant\CoreEventList::ROUTER_AFTER_DISPATCH_EVENT 
+\BaAGee\NkNkn\Router::ROUTER_AFTER_DISPATCH_EVENT 
 ```
 
 ## session支持file,memcache,redis储存

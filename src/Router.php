@@ -13,7 +13,6 @@ use BaAGee\Event\Event;
 use BaAGee\Log\Log;
 use BaAGee\NkNkn\Base\ActionAbstract;
 use BaAGee\NkNkn\Base\TraitFunc\TimerTrait;
-use BaAGee\NkNkn\Constant\CoreEventList;
 use BaAGee\Onion\Onion;
 use BaAGee\Router\Base\RouterAbstract;
 use BaAGee\NkNkn\Middleware\CookieInit;
@@ -26,6 +25,11 @@ use BaAGee\NkNkn\Middleware\SessionInit;
 final class Router extends RouterAbstract
 {
     use TimerTrait;
+
+    const ROUTER_BEFORE_INIT_EVENT     = 'CORE_ROUTER_BEFORE_INIT_EVENT';
+    const ROUTER_AFTER_INIT_EVENT      = 'CORE_ROUTER_AFTER_INIT_EVENT';
+    const ROUTER_BEFORE_DISPATCH_EVENT = 'CORE_ROUTER_BEFORE_DISPATCH_EVENT';
+    const ROUTER_AFTER_DISPATCH_EVENT  = 'CORE_ROUTER_AFTER_DISPATCH_EVENT';
 
     /**
      * 匹配到路由后调用方法
@@ -41,7 +45,7 @@ final class Router extends RouterAbstract
         $callback = self::getCallback($callback);
         $middlewareList = self::getMiddlewareList($other);
         // 路由匹配结束后
-        Event::trigger(CoreEventList::ROUTER_AFTER_DISPATCH_EVENT);
+        Event::trigger(self::ROUTER_AFTER_DISPATCH_EVENT);
         return self::eatingOnion(self::getRequestData($method, $params), $middlewareList, $callback);
     }
 
