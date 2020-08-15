@@ -20,17 +20,17 @@ class UploadFile
      * @var array
      */
     private $config = [
-        'maxSize'       => -1,    // 上传文件的最大值 单位byte
-        'allowExts'     => [],    // 允许上传的文件后缀 留空不作后缀检查
-        'allowTypes'    => [],    // 允许上传的文件类型 留空不做检查
-        'savePath'      => '',// 上传文件保存路径
-        'autoSub'       => false,// 启用子目录保存文件
-        'subType'       => 'hash',// 子目录创建方式 可以使用hash date
-        'dateFormat'    => 'Ymd',
-        'autoCheck'     => true, // 是否自动检查是否合法
+        'maxSize' => -1,    // 上传文件的最大值 单位byte
+        'allowExts' => [],    // 允许上传的文件后缀 留空不作后缀检查
+        'allowTypes' => [],    // 允许上传的文件类型 留空不做检查
+        'savePath' => '',// 上传文件保存路径
+        'autoSub' => false,// 启用子目录保存文件
+        'subType' => 'hash',// 子目录创建方式 可以使用hash date
+        'dateFormat' => 'Ymd',
+        'autoCheck' => true, // 是否自动检查是否合法
         'uploadReplace' => false,// 存在同名是否覆盖
-        'saveRule'      => 'uniqid',// 上传文件命名规则函数名
-        'hashType'      => 'md5_file',// 上传文件Hash规则函数名
+        'saveRule' => 'uniqid',// 上传文件命名规则函数名
+        'hashType' => 'md5_file',// 上传文件Hash规则函数名
     ];
 
     /**
@@ -117,12 +117,12 @@ class UploadFile
         if (!is_dir($savePath) || !is_writeable($savePath)) {
             if (!@mkdir($savePath, 0777, true)) {
                 if (!is_dir($savePath)) {
-                    throw new \Exception($savePath . ' directory to create failure！');
+                    throw new \Exception(sprintf('创建文件夹失败:%s', $savePath));
                 }
             }
         }
         $fileInfos = [];
-        $isUpload  = false;
+        $isUpload = false;
 
         // 获取上传的文件信息
         // 对$_FILES数组信息处理
@@ -145,14 +145,14 @@ class UploadFile
                 //保存上传文件
                 $this->save($file);
                 if (function_exists($this->hashType)) {
-                    $fun               = $this->hashType;
+                    $fun = $this->hashType;
                     $file['file_hash'] = $fun($this->autoCharset($file['save_path'] . $file['save_name'], 'utf-8', 'gbk'));
                 }
                 //上传成功后保存文件信息，供其他地方调用
                 $field = $file['field'];
                 unset($file['tmp_name'], $file['error'], $file['field']);
                 $fileInfos[$field][] = $file;
-                $isUpload            = true;
+                $isUpload = true;
             }
         }
         if ($isUpload) {
@@ -170,10 +170,10 @@ class UploadFile
     private function dealFiles($files)
     {
         $fileArray = [];
-        $n         = 0;
+        $n = 0;
         foreach ($files as $key => $file) {
             if (is_array($file['name'])) {
-                $keys  = array_keys($file);
+                $keys = array_keys($file);
                 $count = count($file['name']);
                 for ($i = 0; $i < $count; $i++) {
                     $fileArray[$n]['field'] = $key;
@@ -197,19 +197,19 @@ class UploadFile
     {
         switch ($errorNo) {
             case 1:
-                throw new \Exception('The uploaded file exceeds the value of the upload_max_filesize option in php.ini');
+                throw new \Exception('上传文件大小超过服务器限制');
             case 2:
-                throw new \Exception('The size of the uploaded file exceeds the value specified by the MAX_FILE_SIZE option in the HTML form');
+                throw new \Exception('上传文件的大小超过了HTML表单中MAX_FILE_SIZE选项指定的值');
             case 3:
-                throw new \Exception('Only part of the file is uploaded');
+                throw new \Exception('仅上传文件的一部分');
             case 4:
-                throw new \Exception('No files have been uploaded');
+                throw new \Exception('没有文件上传');
             case 6:
-                throw new \Exception('Temporary folder not found', '');
+                throw new \Exception('找不到临时文件夹');
             case 7:
-                throw new \Exception('File write failed');
+                throw new \Exception('文件写入失败');
             default:
-                throw new \Exception('Unknown upload error');
+                throw new \Exception('上传失败');
         }
     }
 
@@ -236,7 +236,7 @@ class UploadFile
         if ($this->autoSub) {
             // 使用子目录保存文件
             $filename['save_name'] = $saveName;
-            $saveName              = $this->getSubName($filename) . $saveName;
+            $saveName = $this->getSubName($filename) . $saveName;
         }
         return $saveName;
     }
@@ -255,7 +255,7 @@ class UploadFile
             case 'hash':
             default:
                 $name = md5($file['save_name']);
-                $dir  = $name . DIRECTORY_SEPARATOR;
+                $dir = $name . DIRECTORY_SEPARATOR;
                 break;
         }
         if (!is_dir($file['save_path'] . $dir)) {
@@ -313,7 +313,7 @@ class UploadFile
     private function autoCharset($fContents, $from = 'gbk', $to = 'utf-8')
     {
         $from = strtoupper($from) == 'UTF8' ? 'utf-8' : $from;
-        $to   = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
+        $to = strtoupper($to) == 'UTF8' ? 'utf-8' : $to;
         if (strtoupper($from) === strtoupper($to) || empty($fContents) || (is_scalar($fContents) && !is_string($fContents))) {
             //如果编码相同或者非字符串标量则不转换
             return $fContents;
