@@ -212,7 +212,7 @@ abstract class App extends TaskBase
     final private static function wtfInit()
     {
         // 注册错误提示
-        WtfError::register(new WtfHandler([
+        WtfError::register(new ErrorHandler([
             'is_debug' => Config::get('app/is_debug', true),#是否为调试模式
             # php error log路径不为空就调用写Log方法
             'php_error_log_dir' => implode(DIRECTORY_SEPARATOR, [AppEnv::get('RUNTIME_PATH'), 'log']),
@@ -269,7 +269,7 @@ abstract class App extends TaskBase
                     if (is_dir($file)) {
                         self::removeCache($file);
                         rmdir($file);
-                    } else {
+                    } else if (is_file($file)) {
                         unlink($file);
                     }
                 }
